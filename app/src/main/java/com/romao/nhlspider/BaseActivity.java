@@ -41,4 +41,8 @@ public abstract class BaseActivity extends FragmentActivity {
         Timber.v("localStorage : " + localStorage);
         Timber.v("connectionManager : " + connectionManager);
     }
+
+    public Route getRoute() {
+        return route;
+    }
 }
