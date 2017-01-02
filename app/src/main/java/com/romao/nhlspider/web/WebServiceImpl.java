@@ -1,12 +1,16 @@
 package com.romao.nhlspider.web;
 
 import com.romao.nhlspider.model.Game;
+import com.romao.nhlspider.parser.HtmlTextHandler;
+
+import org.jdom2.Document;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * Created by rpiontkovsky on 12/27/2016.
@@ -31,8 +35,13 @@ public class WebServiceImpl implements WebService {
     }
 
     @Override
-    public Observable<String> getGameSummary(Game game) {
+    public Observable<Document> getGameSummary(Game game) {
         String gameNumber = String.valueOf(game.getGameId()).substring(4);
-        return retrofitWebService.getGameSummary(gameNumber);
+        return retrofitWebService.getGameSummary(gameNumber).flatMap(new Func1<String, Observable<Document>>() {
+            @Override
+            public Observable<Document> call(String s) {
+                return Observable.just(HtmlTextHandler.convertToDocument(s));
+            }
+        });
     }
 }

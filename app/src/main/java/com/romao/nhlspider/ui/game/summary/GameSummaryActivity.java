@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import com.romao.nhlspider.PresenterActivity;
 import com.romao.nhlspider.util.Route;
 
+import org.jdom2.Document;
+
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -54,7 +56,7 @@ public class GameSummaryActivity extends PresenterActivity<GameSummaryPresenter,
         webService.getGameSummary(localStorage.games().readById(gameId))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<String>() {
+                .subscribe(new Subscriber<Document>() {
                     @Override
                     public void onCompleted() {
                         // TODO
@@ -66,8 +68,8 @@ public class GameSummaryActivity extends PresenterActivity<GameSummaryPresenter,
                     }
 
                     @Override
-                    public void onNext(String s) {
-                        // TODO
+                    public void onNext(Document doc) {
+                        Timber.v("doc : " + doc);
                     }
                 });
     }
