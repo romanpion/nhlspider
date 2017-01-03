@@ -568,6 +568,9 @@ public class GameSummaryParser extends DocParser {
 
         StringBuilder builder = new StringBuilder();
         while (stTok.hasMoreTokens()) {
+            if (builder.length() > 0) {
+                builder.append(" ");
+            }
             builder.append(stTok.nextToken());
         }
         return builder.toString();

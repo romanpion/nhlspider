@@ -9,8 +9,6 @@ import com.romao.nhlspider.model.Game;
 import com.romao.nhlspider.ui.common.AbstractPresenterView;
 import com.romao.nhlspider.ui.view.GameCardView;
 
-import timber.log.Timber;
-
 /**
  * Created by rpiontkovsky on 12/27/2016.
  */
@@ -20,8 +18,6 @@ public class GameMenuView extends AbstractPresenterView<GameMenuPresenter> {
     private GameCardView viewGameCard;
     private View layoutLoading;
     private View viewGameSummary;
-    private TextView textHomeGoals;
-    private TextView textAwayGoals;
     private TextView textGameAttendance;
 
     public GameMenuView(Context context) {
@@ -34,8 +30,6 @@ public class GameMenuView extends AbstractPresenterView<GameMenuPresenter> {
         viewGameCard = (GameCardView) findViewById(R.id.view_game_card);
         layoutLoading = findViewById(R.id.layout_loading);
         viewGameSummary = findViewById(R.id.view_game_summary);
-        textHomeGoals = (TextView) viewGameCard.findViewById(R.id.text_home_goals);
-        textAwayGoals = (TextView) viewGameCard.findViewById(R.id.text_away_goals);
         textGameAttendance = (TextView) viewGameSummary.findViewById(R.id.text_game_attendance);
     }
 
