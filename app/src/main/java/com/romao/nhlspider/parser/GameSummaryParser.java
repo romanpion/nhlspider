@@ -8,6 +8,8 @@ import org.jdom2.Element;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import timber.log.Timber;
+
 /**
  * Created by rpiontkovsky on 1/3/2017.
  */
@@ -23,117 +25,53 @@ public class GameSummaryParser extends DocParser {
             throw new NullPointerException("Document should not be null");
         }
 
+        long start = System.currentTimeMillis();
         GameSummary gameSummary = new GameSummary();
         gameSummary.setAttendance(getAttendance());
         gameSummary.setHomeGoals(getHomeGoals());
         gameSummary.setAwayGoals(getAwayGoals());
         gameSummary.setArenaName(getArenaName());
+        gameSummary.setHomeShots(getHomeShots());
+        gameSummary.setHomePenalties(getHomePenalties());
+        gameSummary.setHomePims(getHomePims());
+        gameSummary.setHomePowerPlays(getHomePPNew());
+        gameSummary.setHomePpGoals(getHomePPGoalsNew());
+        gameSummary.setHomeRealGoals(getRealHomeGoals());
+        gameSummary.setAwayShots(getAwayShots());
+        gameSummary.setAwayPenalties(getAwayPenalties());
+        gameSummary.setAwayPims(getAwayPims());
+        gameSummary.setAwayPowerPlays(getVisitorPPNew());
+        gameSummary.setAwayPpGoals(getVisitorPPGoalsNew());
+        gameSummary.setAwayRealGoals(getRealAwayGoals());
+        long finish = System.currentTimeMillis();
+        Timber.v("parsing : " + (finish - start) + " ms");
 
         return gameSummary;
     }
 
-    /*private Element getVisitorPenaltyElement() {
-        Element visitorPenaltyElem = selectFirst("//table[@id='PenaltySummary']/tr[2]/td/table/tr/td[1]");
-        return visitorPenaltyElem;
+    private int getHomePenalties() {
+        String text = getPenaltyElement(true).getText();
+        return Integer.parseInt(text.split("-")[0].trim());
     }
 
-    public Collection<PenaltyType> collectPenaltyTypes() {
-        Collection<PenaltyType> pTypes = new HashSet<PenaltyType>();
-        final Element pElem = getVisitorPenaltyElement();
-        List<?> elements = pElem.element("table").elements();
-
-        for(int i=1; i<elements.size()-1; i++) {
-            Element trElem = (Element)elements.get(i);
-            String penType = ((Element)trElem.elements().get(5)).getText();
-            pTypes.add(PenaltyTypeDeterminer.get(penType));
-        }
-
-        final Element hpElem = getHomePenaltyElement();
-        elements = hpElem.element("table").elements();
-
-        for(int i=1; i<elements.size()-1; i++) {
-            Element trElem = (Element)elements.get(i);
-            String penType = ((Element)trElem.elements().get(5)).getText();
-            pTypes.add(PenaltyTypeDeterminer.get(penType));
-        }
-        return pTypes;
+    private int getHomePims() {
+        String text = getPenaltyElement(true).getText();
+        return Integer.parseInt(text.split("-")[1].trim());
     }
 
-    public Collection<Penalty> getVisitorPenalties(final Game game) {
-        return getPenalties(game, false);
+    private int getAwayPenalties() {
+        String text = getPenaltyElement(false).getText();
+        return Integer.parseInt(text.split("-")[0].trim());
     }
 
-    private Element getHomePenaltyElement() {
-        if(this.doc == null) {
-            return null;
-        }
-        Element homePenaltyElem = (Element)this.doc.selectNodes("//table[@id='PenaltySummary']/tr[2]/td/table/tr/td[2]").get(0);
-        return homePenaltyElem;
+    private int getAwayPims() {
+        String text = getPenaltyElement(false).getText();
+        return Integer.parseInt(text.split("-")[1].trim());
     }
 
-    public Collection<Penalty> getHomePenalties(final Game game) {
-        return getPenalties(game, true);
+    private Element getPenaltyElement(boolean home) {
+        return selectFirst("//table[@id='PenaltySummary']/tr[2]/td/table/tr/td/table/tr[2]/td[" + (home ? 4 : 1) + "]/table/tr[1]/td[2]");
     }
-
-    private Collection<Penalty> getPenalties(final Game game, final Boolean homeTeam) {
-        final Collection<Penalty> resultCollection = new ArrayList<Penalty>();
-        final Team team = homeTeam ? game.getHomeTeam() : game.getVisitorTeam();
-        final Team oppositeTeam = homeTeam ? game.getVisitorTeam() : game.getHomeTeam();
-        final Element pElem = homeTeam ? getHomePenaltyElement() : getVisitorPenaltyElement();
-        final Integer pathToNameInt = homeTeam ? 2 : 1;
-
-        List<?> elements = pElem.element("table").elements();
-
-        System.out.println("penalty count:" + (elements.size()-2));
-
-        for(int i=1; i<elements.size()-1; i++) {
-            Element trElem = (Element)elements.get(i);
-
-            String periodString = ((Element)trElem.elements().get(1)).getText();
-            int period = periodString.equals("OT") ? 4 : Integer.parseInt(periodString);
-
-            String timeString = ((Element)trElem.elements().get(2)).getText();
-            int fullTime = (period-1)*1200 + ParsingUtils.convertTimeStringToSeconds(timeString);
-
-            int penaltyMinutes = Integer.parseInt(((Element)trElem.elements().get(4)).getText());
-
-            String penType = ((Element)trElem.elements().get(5)).getText();
-            PenaltyType type = PenaltyTypeDeterminer.get(penType);
-
-            if(type==PenaltyType.PS) {
-                continue;
-            }
-
-            String pathToName = "//table[@id='PenaltySummary']/tr[2]/td/table/tr/td["+pathToNameInt+"]/table/tr[" + (i+1) + "]/td[4]/table/tr/td[4]";
-            String shortName = this.doc.selectSingleNode(pathToName).getText();
-            Player p = null;
-            if(!shortName.equals("TEAM")) {
-                p = PlayerDao.INSTANCE.findByShortName(shortName, team);
-            }
-
-            Penalty penalty = new Penalty();
-            penalty.setGame(game);
-            penalty.setMin(penaltyMinutes);
-            penalty.setPlayer(p);
-            penalty.setType(type);
-            penalty.setTeam(team);
-            penalty.setOpponent(oppositeTeam);
-            penalty.setTime(fullTime);
-
-            resultCollection.add(penalty);
-        }
-        System.out.println("added " + resultCollection.size() + " penalties");
-        return resultCollection;
-    }
-
-    public Team getVisitorTeam() {
-        if(this.doc == null) {
-            return null;
-        }
-        Element visitorElem = (Element)this.doc.selectNodes("//table[@id='Visitor']/tr[3]/td").get(0);
-        String fullName = new StringTokenizer(visitorElem.getText(), "\n").nextToken().trim();
-        return Team.findByFullUpperName(fullName);
-    }*/
 
     private int getAwayGoals() {
         if(this.document == null) {
@@ -149,12 +87,12 @@ public class GameSummaryParser extends DocParser {
         return goals;
     }
 
-    /*@SuppressWarnings("unchecked")
-    private int getRealVisitorGoals() {
-        if(this.doc == null) {
+    @SuppressWarnings("unchecked")
+    private int getRealAwayGoals() {
+        if(this.document == null) {
             return 0;
         }
-        List<Element> list = this.doc.selectNodes("//table[@id='MainTable']/tr[9]/td/table/tr[2]/td/table/tr/td[1]/table/tr/td[1]");
+        List<Element> list = selectNodes("//table[@id='MainTable']/tr[9]/td/table/tr[2]/td/table/tr/td[1]/table/tr/td[1]");
         Element td = null;
         for(Element e : list) {
             if(e.getText().equals("TOT")) {
@@ -163,31 +101,7 @@ public class GameSummaryParser extends DocParser {
             }
         }
 
-        String text = ((Element)td.getParent().elements().get(1)).getText();
-        int goals = 0;
-        try {
-            goals = Integer.parseInt(text);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        return goals;
-    }*/
-
-    /*@SuppressWarnings("unchecked")
-    private int getVisitorShotsTotal() {
-        if(this.doc == null) {
-            return 0;
-        }
-        List<Element> list = this.doc.selectNodes("//table[@id='MainTable']/tr[9]/td/table/tr[2]/td/table/tr/td[1]/table/tr/td[1]");
-        Element td = null;
-        for(Element e : list) {
-            if(e.getText().equals("TOT")) {
-                td = e;
-                break;
-            }
-        }
-
-        String text = ((Element)td.getParent().elements().get(2)).getText();
+        String text = (((Element)td.getParent()).getChildren().get(1)).getText();
         int goals = 0;
         try {
             goals = Integer.parseInt(text);
@@ -197,16 +111,29 @@ public class GameSummaryParser extends DocParser {
         return goals;
     }
 
-    public Team getHomeTeam() {
-        if(this.doc == null) {
-            return null;
+    @SuppressWarnings("unchecked")
+    private int getAwayShots() {
+        if(this.document == null) {
+            return 0;
         }
-        Element homeElem = (Element)this.doc.selectNodes("//table[@id='Home']/tr[3]/td").get(0);
+        List<Element> list = selectNodes("//table[@id='MainTable']/tr[9]/td/table/tr[2]/td/table/tr/td[1]/table/tr/td[1]");
+        Element td = null;
+        for(Element e : list) {
+            if(e.getText().equals("TOT")) {
+                td = e;
+                break;
+            }
+        }
 
-        String fullName = new StringTokenizer(homeElem.getText(), "\n").nextToken().trim();
-
-        return Team.findByFullUpperName(fullName);
-    }*/
+        String text = (((Element)td.getParent()).getChildren().get(2)).getText();
+        int shots = 0;
+        try {
+            shots = Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return shots;
+    }
 
     private int getHomeGoals() {
         if(this.document == null) {
@@ -222,12 +149,12 @@ public class GameSummaryParser extends DocParser {
         return goals;
     }
 
-    /*@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     private int getRealHomeGoals() {
-        if(this.doc == null) {
+        if(this.document == null) {
             return 0;
         }
-        List<Element> list = this.doc.selectNodes("//table[@id='MainTable']/tr[9]/td/table/tr[2]/td/table/tr/td[2]/table/tr/td[1]");
+        List<Element> list = selectNodes("//table[@id='MainTable']/tr[9]/td/table/tr[2]/td/table/tr/td[2]/table/tr/td[1]");
         Element td = null;
         for(Element e : list) {
             if(e.getText().equals("TOT")) {
@@ -236,7 +163,7 @@ public class GameSummaryParser extends DocParser {
             }
         }
 
-        String text = ((Element)td.getParent().elements().get(1)).getText();
+        String text = (((Element)td.getParent()).getChildren().get(1)).getText();
         int goals = 0;
         try {
             goals = Integer.parseInt(text);
@@ -247,11 +174,11 @@ public class GameSummaryParser extends DocParser {
     }
 
     @SuppressWarnings("unchecked")
-    private int getHomeShotsTotal() {
-        if(this.doc == null) {
+    private int getHomeShots() {
+        if(this.document == null) {
             return 0;
         }
-        List<Element> list = this.doc.selectNodes("//table[@id='MainTable']/tr[9]/td/table/tr[2]/td/table/tr/td[2]/table/tr/td[1]");
+        List<Element> list = selectNodes("//table[@id='MainTable']/tr[9]/td/table/tr[2]/td/table/tr/td[2]/table/tr/td[1]");
         Element td = null;
         for(Element e : list) {
             if(e.getText().equals("TOT")) {
@@ -260,29 +187,29 @@ public class GameSummaryParser extends DocParser {
             }
         }
 
-        String text = ((Element)td.getParent().elements().get(2)).getText();
-        int goals = 0;
+        String text = (((Element)td.getParent()).getChildren().get(2)).getText();
+        int shots = 0;
         try {
-            goals = Integer.parseInt(text);
+            shots = Integer.parseInt(text);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-        return goals;
+        return shots;
     }
 
     protected String getVisitorPPSummaryString() {
-        if(this.doc == null) {
+        if(this.document == null) {
             return "-";
         }
-        Element visitorPpElement = (Element)this.doc.selectNodes("//table[@id='MainTable']/tr[11]/td/table/tr[2]/td/table/tr/td[1]/table/tr[2]/td[4]").get(0);
+        Element visitorPpElement = selectNodes("//table[@id='MainTable']/tr[11]/td/table/tr[2]/td/table/tr/td[1]/table/tr[2]/td[4]").get(0);
         return visitorPpElement.getText();
     }
 
     protected List<Element> getVisitorPPSummaryElems() {
-        if(this.doc == null) {
+        if(this.document == null) {
             return null;
         }
-        List<Element> visitorPpElements = (List<Element>)this.doc.selectNodes("//table[@id='MainTable']/tr[11]/td/table/tr[2]/td/table/tr/td[1]/table/tr[2]/td");
+        List<Element> visitorPpElements = selectNodes("//table[@id='MainTable']/tr[11]/td/table/tr[2]/td/table/tr/td[1]/table/tr[2]/td");
         //List<Element> visitorPpElements = (List<Element>)this.doc.selectNodes("//table[@id='MainTable']/tr[6]/td/table/tr[1]/td/table/tr/td/table/tr[1]/td[0]/table/tr[1]/td[1]");
         return visitorPpElements;
     }
@@ -309,13 +236,6 @@ public class GameSummaryParser extends DocParser {
         return Integer.parseInt(ppString.substring(minusIndex+1, slashIndex));
     }
 
-    public int getVisitorPP() {
-        if(getIsNewPPFormat()) {
-            return getVisitorPPNew();
-        }
-        return getVisitorPP(getVisitorPPSummaryString());
-    }
-
     public int getVisitorPPGoalsNew() {
         List<Element> elems = getVisitorPPSummaryElems();
         int pp = 0;
@@ -335,13 +255,6 @@ public class GameSummaryParser extends DocParser {
             return 0;
         }
         return Integer.parseInt(ppString.substring(0, minusIndex));
-    }
-
-    public int getVisitorPPGoals() {
-        if(getIsNewPPFormat()) {
-            return getVisitorPPGoalsNew();
-        }
-        return getVisitorPPGoals(getVisitorPPSummaryString());
     }
 
     public int getVisitorPPTimeNew() {
@@ -368,26 +281,19 @@ public class GameSummaryParser extends DocParser {
         return minutes*60 + seconds;
     }
 
-    public int getVisitorPPTime() {
-        if(getIsNewPPFormat()) {
-            return getVisitorPPTimeNew();
-        }
-        return getVisitorPPTime(getVisitorPPSummaryString());
-    }
-
     public String getHomePPSummaryString() {
-        if(this.doc == null) {
+        if(this.document == null) {
             return "-";
         }
-        Element visitorPpElement = (Element)this.doc.selectNodes("//table[@id='MainTable']/tr[11]/td/table/tr[2]/td/table/tr/td[2]/table/tr[2]/td[4]").get(0);
+        Element visitorPpElement = selectNodes("//table[@id='MainTable']/tr[11]/td/table/tr[2]/td/table/tr/td[2]/table/tr[2]/td[4]").get(0);
         return visitorPpElement.getText();
     }
 
     public List<Element> getHomePPSummaryElems() {
-        if(this.doc == null) {
+        if(this.document == null) {
             return null;
         }
-        List<Element> homePpElements = (List<Element>)this.doc.selectNodes("//table[@id='MainTable']/tr[11]/td/table/tr[2]/td/table/tr/td[2]/table/tr[2]/td");
+        List<Element> homePpElements = selectNodes("//table[@id='MainTable']/tr[11]/td/table/tr[2]/td/table/tr/td[2]/table/tr[2]/td");
         return homePpElements;
     }
 
@@ -413,13 +319,6 @@ public class GameSummaryParser extends DocParser {
         return Integer.parseInt(ppString.substring(minusIndex+1, slashIndex));
     }
 
-    public int getHomePP() {
-        if(getIsNewPPFormat()) {
-            return getHomePPNew();
-        }
-        return getHomePP(getHomePPSummaryString());
-    }
-
     public int getHomePPGoalsNew() {
         List<Element> elems = getHomePPSummaryElems();
         int pp = 0;
@@ -439,13 +338,6 @@ public class GameSummaryParser extends DocParser {
             return 0;
         }
         return Integer.parseInt(ppString.substring(0, minusIndex));
-    }
-
-    public int getHomePPGoals() {
-        if(getIsNewPPFormat()) {
-            return getHomePPGoalsNew();
-        }
-        return getHomePPGoals(getHomePPSummaryString());
     }
 
     public int getHomePPTimeNew() {
@@ -471,13 +363,6 @@ public class GameSummaryParser extends DocParser {
         int seconds = Integer.parseInt(timeString.split(":")[1]);
         return minutes*60 + seconds;
     }
-
-    public int getHomePPTime() {
-        if(getIsNewPPFormat()) {
-            return getHomePPTimeNew();
-        }
-        return getHomePPTime(getHomePPSummaryString());
-    }*/
 
     @SuppressWarnings("unchecked")
     private Element getGoalInfoElement(final int goalIndex) {

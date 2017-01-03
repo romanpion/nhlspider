@@ -15,6 +15,19 @@ public class GameSummary extends RealmObject {
 
     private int homeGoals;
     private int awayGoals;
+    private int homeRealGoals;
+    private int awayRealGoals;
+    private int homeShots;
+    private int awayShots;
+    private int homePenalties;
+    private int awayPenalties;
+    private int homePims;
+    private int awayPims;
+    private int homePowerPlays;
+    private int awayPowerPlays;
+    private int homePpGoals;
+    private int awayPpGoals;
+
     private int attendance;
     private int gameLength;
     private String arenaName;
@@ -74,5 +87,109 @@ public class GameSummary extends RealmObject {
 
     public void setArenaName(String arenaName) {
         this.arenaName = arenaName;
+    }
+
+    public int getHomeShots() {
+        return homeShots;
+    }
+
+    public void setHomeShots(int homeShots) {
+        this.homeShots = homeShots;
+    }
+
+    public int getAwayShots() {
+        return awayShots;
+    }
+
+    public void setAwayShots(int awayShots) {
+        this.awayShots = awayShots;
+    }
+
+    public int getHomePenalties() {
+        return homePenalties;
+    }
+
+    public void setHomePenalties(int homePenalties) {
+        this.homePenalties = homePenalties;
+    }
+
+    public int getAwayPenalties() {
+        return awayPenalties;
+    }
+
+    public void setAwayPenalties(int awayPenalties) {
+        this.awayPenalties = awayPenalties;
+    }
+
+    public int getHomePims() {
+        return homePims;
+    }
+
+    public void setHomePims(int homePims) {
+        this.homePims = homePims;
+    }
+
+    public int getAwayPims() {
+        return awayPims;
+    }
+
+    public void setAwayPims(int awayPims) {
+        this.awayPims = awayPims;
+    }
+
+    public double getHomeSvPct() {
+        return Math.round(1000.0 * (awayShots - awayRealGoals) / awayShots) / 10.0;
+    }
+
+    public double getAwaySvPct() {
+        return Math.round(1000.0 * (homeShots - homeRealGoals) / homeShots) / 10.0;
+    }
+
+    public int getHomePowerPlays() {
+        return homePowerPlays;
+    }
+
+    public void setHomePowerPlays(int homePowerPlays) {
+        this.homePowerPlays = homePowerPlays;
+    }
+
+    public int getAwayPowerPlays() {
+        return awayPowerPlays;
+    }
+
+    public void setAwayPowerPlays(int awayPowerPlays) {
+        this.awayPowerPlays = awayPowerPlays;
+    }
+
+    public int getHomePpGoals() {
+        return homePpGoals;
+    }
+
+    public void setHomePpGoals(int homePpGoals) {
+        this.homePpGoals = homePpGoals;
+    }
+
+    public int getAwayPpGoals() {
+        return awayPpGoals;
+    }
+
+    public void setAwayPpGoals(int awayPpGoals) {
+        this.awayPpGoals = awayPpGoals;
+    }
+
+    public int getHomeRealGoals() {
+        return homeRealGoals;
+    }
+
+    public void setHomeRealGoals(int homeRealGoals) {
+        this.homeRealGoals = homeRealGoals;
+    }
+
+    public int getAwayRealGoals() {
+        return awayRealGoals;
+    }
+
+    public void setAwayRealGoals(int awayRealGoals) {
+        this.awayRealGoals = awayRealGoals;
     }
 }

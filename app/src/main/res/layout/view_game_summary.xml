@@ -54,6 +54,48 @@
                     android:layout_gravity="center_horizontal"
                     />
 
+                <com.romao.nhlspider.ui.game.summary.GameSummaryRowView
+                    android:id="@+id/view_category_shots"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:category="SHOTS"
+                    />
+
+                <com.romao.nhlspider.ui.game.summary.GameSummaryRowView
+                    android:id="@+id/view_category_powerplays"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:category="POWER PLAYS"
+                    />
+
+                <com.romao.nhlspider.ui.game.summary.GameSummaryRowView
+                    android:id="@+id/view_category_ppgoals"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:category="PP GOALS"
+                    />
+
+                <com.romao.nhlspider.ui.game.summary.GameSummaryRowView
+                    android:id="@+id/view_category_penalties"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:category="PENALTIES"
+                    />
+
+                <com.romao.nhlspider.ui.game.summary.GameSummaryRowView
+                    android:id="@+id/view_category_pims"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:category="PIM"
+                    />
+
+                <com.romao.nhlspider.ui.game.summary.GameSummaryRowView
+                    android:id="@+id/view_category_save_pct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:category="SV %"
+                    />
+
             </LinearLayout>
 
         </FrameLayout>

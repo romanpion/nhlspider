@@ -25,8 +25,9 @@ public class Route {
     public void toGameDetails(Activity activity, View sharedView, long gameId) {
         Intent intent = new Intent(activity, GameMenuActivity.class);
         intent.putExtra(EXTRA_GAME_ID, gameId);
-        ActivityOptionsCompat options = ActivityOptionsCompat.
-                makeSceneTransitionAnimation(activity, sharedView, "viewGameCard");
-        activity.startActivity(intent, options.toBundle());
+//        ActivityOptionsCompat options = ActivityOptionsCompat.
+//                makeSceneTransitionAnimation(activity, sharedView, "viewGameCard");
+//        activity.startActivity(intent, options.toBundle());
+        activity.startActivity(intent);
     }
 }
