@@ -1,6 +1,8 @@
 package com.romao.nhlspider.web;
 
 import com.romao.nhlspider.model.Game;
+import com.romao.nhlspider.model.GameSummary;
+import com.romao.nhlspider.parser.GameSummaryParser;
 import com.romao.nhlspider.parser.HtmlTextHandler;
 
 import org.jdom2.Document;
@@ -35,12 +37,17 @@ public class WebServiceImpl implements WebService {
     }
 
     @Override
-    public Observable<Document> getGameSummary(Game game) {
+    public Observable<GameSummary> getGameSummary(Game game) {
         String gameNumber = String.valueOf(game.getGameId()).substring(4);
         return retrofitWebService.getGameSummary(gameNumber).flatMap(new Func1<String, Observable<Document>>() {
             @Override
             public Observable<Document> call(String s) {
                 return Observable.just(HtmlTextHandler.convertToDocument(s));
+            }
+        }).flatMap(new Func1<Document, Observable<GameSummary>>() {
+            @Override
+            public Observable<GameSummary> call(Document document) {
+                return Observable.just(new GameSummaryParser(document).parse());
             }
         });
     }

@@ -1,6 +1,7 @@
 package com.romao.nhlspider.web;
 
 import com.romao.nhlspider.model.Game;
+import com.romao.nhlspider.model.GameSummary;
 
 import org.jdom2.Document;
 
@@ -14,5 +15,5 @@ import rx.Observable;
 
 public interface WebService {
 
-    Observable<Document> getGameSummary(Game game);
+    Observable<GameSummary> getGameSummary(Game game);
 }

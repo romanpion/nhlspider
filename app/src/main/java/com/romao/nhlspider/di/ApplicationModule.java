@@ -3,6 +3,8 @@ package com.romao.nhlspider.di;
 import android.app.Application;
 import android.content.Context;
 
+import com.romao.nhlspider.datamanager.DataManager;
+import com.romao.nhlspider.datamanager.DataManagerImpl;
 import com.romao.nhlspider.storage.LocalStorage;
 import com.romao.nhlspider.storage.impl.realm.RealmLocalStorage;
 import com.romao.nhlspider.util.ConnectionManager;
@@ -16,6 +18,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
@@ -45,8 +49,22 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    LocalStorage provideLocalStorage(Context context) {
-        return new RealmLocalStorage(context);
+    LocalStorage provideLocalStorage(RealmConfiguration realmConfiguration) {
+        return new RealmLocalStorage(realmConfiguration);
+    }
+
+    @Provides
+    @Singleton
+    RealmConfiguration provideRealmConfiguration() {
+        return new RealmConfiguration.Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
+    }
+
+    @Provides
+    @Singleton
+    DataManager provideDataManager(LocalStorage storage, WebService webService) {
+        return new DataManagerImpl(storage, webService);
     }
 
     @Provides

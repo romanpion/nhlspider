@@ -10,80 +10,97 @@
     >
 
     <LinearLayout
-        android:id="@+id/layoutGameClickable"
+        android:id="@+id/layout_game_clickable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/bg_clickable"
+        android:orientation="vertical"
         android:padding="8dp"
         >
-
-        <!-- layout away team -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-
-            <ImageView
-                android:id="@+id/image_away_team"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_gravity="center_horizontal"
-                />
-
-            <com.romao.nhlspider.ui.widget.StyledText
-                android:id="@+id/text_away_team"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                style="@style/TextAppearance.TeamName"
-                />
-
-        </LinearLayout>
-
-        <android.support.v4.widget.Space
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="0dp"
-            />
 
         <com.romao.nhlspider.ui.widget.StyledText
             android:id="@+id/text_game_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center_horizontal"
             app:font="fonts/Roboto-Bold.ttf"
             android:textSize="14sp"
             />
 
-        <android.support.v4.widget.Space
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="0dp"
-            />
-
-        <!-- layout home team -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             >
 
-            <ImageView
-                android:id="@+id/image_home_team"
+            <!-- layout away team -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:id="@+id/image_away_team"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+                <com.romao.nhlspider.ui.widget.StyledText
+                    android:id="@+id/text_away_team"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    style="@style/TextAppearance.TeamName"
+                    />
+
+            </LinearLayout>
+
+            <com.romao.nhlspider.ui.widget.StyledText
+                android:id="@+id/text_away_goals"
+                style="@style/TextAppearance.TeamGoals"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="0dp"
                 />
 
             <com.romao.nhlspider.ui.widget.StyledText
-                android:id="@+id/text_home_team"
+                android:id="@+id/text_home_goals"
+                style="@style/TextAppearance.TeamGoals"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:gravity="center"
+                />
+
+            <!-- layout home team -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                style="@style/TextAppearance.TeamName"
-                />
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:id="@+id/image_home_team"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+                <com.romao.nhlspider.ui.widget.StyledText
+                    android:id="@+id/text_home_team"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    style="@style/TextAppearance.TeamName"
+                    />
+
+            </LinearLayout>
 
         </LinearLayout>
 

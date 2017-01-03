@@ -6,40 +6,42 @@ import com.romao.nhlspider.storage.GameStorage;
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * Created by rpiontkovsky on 12/27/2016.
  */
 
-public class RealmGameStorage implements GameStorage {
+public class RealmGameStorage extends RealmObjectStorage<Game> implements GameStorage {
 
     private static final String FIELD_GAME_ID = "gameId";
 
-    @Override
-    public List<Game> readAll() {
-        Realm realm = Realm.getDefaultInstance();
-        return realm.copyFromRealm(realm.where(Game.class).findAll());
+    public  RealmGameStorage(RealmConfiguration realmConfiguration) {
+        super(realmConfiguration, Game.class);
     }
 
     @Override
     public Game readById(long id) {
-        Realm realm = Realm.getDefaultInstance();
-        return realm.copyFromRealm(realm.where(Game.class).equalTo(FIELD_GAME_ID, id).findFirst());
+        return copy(prepareQuery().equalTo(FIELD_GAME_ID, id).findFirst());
     }
 
     @Override
-    public void upsert(Game game) {
-        Realm realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
-        realm.copyToRealmOrUpdate(game);
-        realm.commitTransaction();
+    public void upsert(final Game game) {
+        performTransaction(new StorageTransaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealmOrUpdate(game);
+            }
+        });
     }
 
     @Override
-    public void upsertAll(List<Game> games) {
-        Realm realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
-        realm.copyToRealmOrUpdate(games);
-        realm.commitTransaction();
+    public void upsertAll(final List<Game> games) {
+        performTransaction(new StorageTransaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealmOrUpdate(games);
+            }
+        });
     }
 }

@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
 
-import com.romao.nhlspider.ui.game.summary.GameSummaryActivity;
+import com.romao.nhlspider.ui.game.summary.GameMenuActivity;
 import com.romao.nhlspider.ui.overview.GamesOverviewActivity;
 
 /**
@@ -23,7 +23,7 @@ public class Route {
     }
 
     public void toGameDetails(Activity activity, View sharedView, long gameId) {
-        Intent intent = new Intent(activity, GameSummaryActivity.class);
+        Intent intent = new Intent(activity, GameMenuActivity.class);
         intent.putExtra(EXTRA_GAME_ID, gameId);
         ActivityOptionsCompat options = ActivityOptionsCompat.
                 makeSceneTransitionAnimation(activity, sharedView, "viewGameCard");

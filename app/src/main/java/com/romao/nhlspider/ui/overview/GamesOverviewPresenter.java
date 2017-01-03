@@ -7,6 +7,7 @@ import com.romao.nhlspider.model.Game;
 import com.romao.nhlspider.model.util.GameComparator;
 import com.romao.nhlspider.storage.LocalStorage;
 import com.romao.nhlspider.ui.common.AbstractPresenter;
+import com.romao.nhlspider.util.OkResult;
 
 import java.util.Collections;
 import java.util.List;
@@ -41,20 +42,19 @@ public class GamesOverviewPresenter extends AbstractPresenter<GamesOverviewView>
     protected void onViewAttached() {
         // init/update model
         // pass data to view
-        Observable.create(new Observable.OnSubscribe<List<Game>>() {
+        Observable.create(new Observable.OnSubscribe<OkResult>() {
             @Override
-            public void call(Subscriber<? super List<Game>> subscriber) {
-                List<Game> games = storage.games().readAll();
-                Collections.sort(games, new GameComparator());
-                subscriber.onNext(games);
+            public void call(Subscriber<? super OkResult> subscriber) {
+                subscriber.onNext(OkResult.INSTANCE);
                 subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<List<Game>>() {
+                .subscribe(new Action1<OkResult>() {
                     @Override
-                    public void call(List<Game> games) {
+                    public void call(OkResult okResult) {
                         if (view != null) {
+                            List<Game> games = storage.games().readAll();
                             view.setData(games);
                             Timber.v("update overview");
                         }

@@ -20,6 +20,8 @@ public class GameCardView extends FrameLayout {
     private TextView textGameDate;
     private TextView textHomeTeam;
     private TextView textAwayTeam;
+    private TextView textHomeGoals;
+    private TextView textAwayGoals;
     private ImageView imageHomeTeam;
     private ImageView imageAwayTeam;
 
@@ -44,6 +46,8 @@ public class GameCardView extends FrameLayout {
         textGameDate = (TextView) findViewById(R.id.text_game_date);
         textHomeTeam = (TextView) findViewById(R.id.text_home_team);
         textAwayTeam = (TextView) findViewById(R.id.text_away_team);
+        textHomeGoals = (TextView) findViewById(R.id.text_home_goals);
+        textAwayGoals = (TextView) findViewById(R.id.text_away_goals);
         imageHomeTeam = (ImageView) findViewById(R.id.image_home_team);
         imageAwayTeam = (ImageView) findViewById(R.id.image_away_team);
     }
@@ -53,6 +57,15 @@ public class GameCardView extends FrameLayout {
             textGameDate.setText(DateUtil.toShortString(game.getDate()));
             textHomeTeam.setText(game.getHomeTeam().name());
             textAwayTeam.setText(game.getAwayTeam().name());
+
+            if (game.getGameSummary() != null) {
+                textHomeGoals.setText(String.valueOf(game.getGameSummary().getHomeGoals()));
+                textAwayGoals.setText(String.valueOf(game.getGameSummary().getAwayGoals()));
+            } else {
+                textHomeGoals.setText(" - ");
+                textAwayGoals.setText(" - ");
+            }
+
             imageHomeTeam.setImageResource(TeamImageResolver.getTeamLogoResource(getContext(), game.getHomeTeam()));
             imageAwayTeam.setImageResource(TeamImageResolver.getTeamLogoResource(getContext(), game.getAwayTeam()));
         } else {
@@ -61,6 +74,8 @@ public class GameCardView extends FrameLayout {
             textAwayTeam.setText(null);
             imageHomeTeam.setImageResource(0);
             imageAwayTeam.setImageResource(0);
+            textHomeGoals.setText(null);
+            textAwayGoals.setText(null);
         }
 
     }

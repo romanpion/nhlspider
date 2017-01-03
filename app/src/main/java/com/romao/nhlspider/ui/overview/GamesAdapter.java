@@ -48,6 +48,7 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Game game = data.get(position);
         holder.cardView.applyGame(game);
+        holder.viewContent.setBackgroundResource(game.getGameSummary() != null ? R.drawable.bg_clickable : R.drawable.bg_clickable_solid);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,10 +65,12 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.ViewHolder> 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private GameCardView cardView;
+        private View viewContent;
 
         public ViewHolder(View rootView) {
             super(rootView);
             cardView = (GameCardView) rootView;
+            viewContent = cardView.findViewById(R.id.layout_game_clickable);
         }
     }
 }

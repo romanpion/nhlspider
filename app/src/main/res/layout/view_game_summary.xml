@@ -8,7 +8,7 @@
     >
 
     <com.romao.nhlspider.ui.view.GameCardView
-        android:id="@+id/viewGameCard"
+        android:id="@+id/view_game_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -21,16 +21,40 @@
         app:cardUseCompatPadding="true">
 
         <FrameLayout
-            android:id="@+id/layoutLoading"
+            android:id="@+id/layout_loading"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ProgressBar
-                android:id="@+id/progressBarLoading"
+                android:id="@+id/progress_bar_loading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:indeterminate="true" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/view_game_summary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:orientation="vertical"
+                >
+
+                <com.romao.nhlspider.ui.widget.StyledText
+                    android:id="@+id/text_game_attendance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.Attendance"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+            </LinearLayout>
 
         </FrameLayout>
 
