@@ -1,6 +1,7 @@
 package com.romao.nhlspider.parser;
 
 import com.romao.nhlspider.model.GameSummary;
+import com.romao.nhlspider.model.Period;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -43,6 +44,7 @@ public class GameSummaryParser extends DocParser {
         gameSummary.setAwayPowerPlays(getVisitorPPNew());
         gameSummary.setAwayPpGoals(getVisitorPPGoalsNew());
         gameSummary.setAwayRealGoals(getRealAwayGoals());
+        gameSummary.setFinalPeriod(getGameFinalPeriod());
         long finish = System.currentTimeMillis();
         Timber.v("parsing : " + (finish - start) + " ms");
 
@@ -85,6 +87,22 @@ public class GameSummaryParser extends DocParser {
             e.printStackTrace();
         }
         return goals;
+    }
+
+    private Period getGameFinalPeriod() {
+        if(this.document == null) {
+            return null;
+        }
+
+        Element lastGoalPeriodElem = selectFirst("//table[@id='MainTable']/tr[4]/td/table/tr[last()]/td[2]");
+        String lastGoalPeriod = lastGoalPeriodElem.getText();
+        if (lastGoalPeriod.equals("SO")) {
+            return Period.SHOOTOUT;
+        } else if (lastGoalPeriod.equals("OT")) {
+            return Period.OVERTIME;
+        } else {
+            return Period.REGULATION;
+        }
     }
 
     @SuppressWarnings("unchecked")

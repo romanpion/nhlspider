@@ -27,6 +27,7 @@ public class GameSummary extends RealmObject {
     private int awayPowerPlays;
     private int homePpGoals;
     private int awayPpGoals;
+    private String finalPeriod;
 
     private int attendance;
     private int gameLength;
@@ -191,5 +192,13 @@ public class GameSummary extends RealmObject {
 
     public void setAwayRealGoals(int awayRealGoals) {
         this.awayRealGoals = awayRealGoals;
+    }
+
+    public Period getFinalPeriod() {
+        return Period.valueOf(finalPeriod);
+    }
+
+    public void setFinalPeriod(Period period) {
+        this.finalPeriod = period.name();
     }
 }

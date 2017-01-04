@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.romao.nhlspider.R;
 import com.romao.nhlspider.model.Game;
+import com.romao.nhlspider.model.Period;
 import com.romao.nhlspider.util.DateUtil;
 import com.romao.nhlspider.util.TeamImageResolver;
 
@@ -22,6 +23,7 @@ public class GameCardView extends FrameLayout {
     private TextView textAwayTeam;
     private TextView textHomeGoals;
     private TextView textAwayGoals;
+    private TextView textFinalPeriod;
     private ImageView imageHomeTeam;
     private ImageView imageAwayTeam;
 
@@ -50,6 +52,7 @@ public class GameCardView extends FrameLayout {
         textAwayGoals = (TextView) findViewById(R.id.text_away_goals);
         imageHomeTeam = (ImageView) findViewById(R.id.image_home_team);
         imageAwayTeam = (ImageView) findViewById(R.id.image_away_team);
+        textFinalPeriod = (TextView) findViewById(R.id.text_final_period);
     }
 
     public void applyGame(Game game) {
@@ -61,9 +64,21 @@ public class GameCardView extends FrameLayout {
             if (game.getGameSummary() != null) {
                 textHomeGoals.setText(String.valueOf(game.getGameSummary().getHomeGoals()));
                 textAwayGoals.setText(String.valueOf(game.getGameSummary().getAwayGoals()));
+                switch (game.getGameSummary().getFinalPeriod()) {
+                    case REGULATION:
+                        textFinalPeriod.setText(null);
+                        break;
+                    case OVERTIME:
+                        textFinalPeriod.setText("OT");
+                        break;
+                    case SHOOTOUT:
+                        textFinalPeriod.setText("SO");
+                        break;
+                }
             } else {
                 textHomeGoals.setText(" - ");
                 textAwayGoals.setText(" - ");
+                textFinalPeriod.setText(null);
             }
 
             imageHomeTeam.setImageResource(TeamImageResolver.getTeamLogoResource(getContext(), game.getHomeTeam()));
