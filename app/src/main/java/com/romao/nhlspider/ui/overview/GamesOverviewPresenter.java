@@ -62,7 +62,7 @@ public class GamesOverviewPresenter extends AbstractPresenter<GamesOverviewView>
                 });
     }
 
-    public void onGameClicked(Game game, View sharedView) {
+    public void onGameClicked(View sharedView, Game game) {
         activity.getRoute().toGameDetails(activity, sharedView, game.getGameId());
     }
 }

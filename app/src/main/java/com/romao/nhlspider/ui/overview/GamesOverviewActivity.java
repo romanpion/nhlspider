@@ -1,6 +1,8 @@
 package com.romao.nhlspider.ui.overview;
 
 import com.romao.nhlspider.PresenterActivity;
+import com.romao.nhlspider.ui.common.ToolbarDecorator;
+import com.romao.nhlspider.ui.common.TopActivityToolbarDecorator;
 
 import timber.log.Timber;
 
@@ -21,8 +23,12 @@ public class GamesOverviewActivity extends PresenterActivity<GamesOverviewPresen
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        Timber.v("onResume");
+    protected ToolbarDecorator createToolbarDecorator() {
+        return new TopActivityToolbarDecorator(this) {
+            @Override
+            public String getActivityTitle() {
+                return "Game Overview";
+            }
+        };
     }
 }

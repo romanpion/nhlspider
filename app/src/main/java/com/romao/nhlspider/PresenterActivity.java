@@ -10,7 +10,7 @@ import com.romao.nhlspider.ui.common.PresenterView;
  * Created by rpiontkovsky on 12/27/2016.
  */
 
-public abstract  class PresenterActivity<E extends Presenter, T extends PresenterView> extends BaseActivity {
+public abstract  class PresenterActivity<E extends Presenter, T extends PresenterView> extends ToolbarActivity {
 
     protected E presenter;
     protected T view;
