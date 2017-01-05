@@ -2,6 +2,8 @@ package com.romao.nhlspider.model;
 
 import org.joda.time.DateTime;
 
+import java.util.List;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -17,6 +19,8 @@ public class Game extends RealmObject {
     private String homeTeam;
     private String awayTeam;
     private String date;
+
+    private GameSummary gameSummary;
 
     public Game() {
     }
@@ -58,6 +62,18 @@ public class Game extends RealmObject {
 
     public void setDate(DateTime date) {
         this.date = date.toString();
+    }
+
+    public GameSummary getGameSummary() {
+        return gameSummary;
+    }
+
+    public void setGameSummary(GameSummary gameSummary) {
+        this.gameSummary = gameSummary;
+    }
+
+    public List<Goal> getGoals() {
+        return gameSummary != null ? gameSummary.getGoals() : null;
     }
 
     public static class GameBuilder {

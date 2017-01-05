@@ -7,4 +7,8 @@ package com.romao.nhlspider.storage;
 public interface LocalStorage {
 
     GameStorage games();
+
+    PlayerStorage players();
+
+    GameSummaryStorage gameSummary();
 }

@@ -8,9 +8,7 @@ import java.util.List;
  * Created by rpiontkovsky on 12/27/2016.
  */
 
-public interface GameStorage {
-
-    List<Game> readAll();
+public interface GameStorage extends ObjectStorage<Game> {
 
     Game readById(long id);
 

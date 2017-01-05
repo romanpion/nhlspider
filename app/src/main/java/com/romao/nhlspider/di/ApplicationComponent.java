@@ -1,6 +1,7 @@
 package com.romao.nhlspider.di;
 
 import com.romao.nhlspider.BaseActivity;
+import com.romao.nhlspider.datamanager.DataManager;
 import com.romao.nhlspider.storage.LocalStorage;
 import com.romao.nhlspider.util.ConnectionManager;
 import com.romao.nhlspider.web.WebService;
@@ -24,4 +25,6 @@ public interface ApplicationComponent {
     LocalStorage localStorage();
 
     ConnectionManager connectionManager();
+
+    DataManager dataManager();
 }

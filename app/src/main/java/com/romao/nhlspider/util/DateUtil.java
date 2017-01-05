@@ -7,8 +7,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import timber.log.Timber;
-
 /**
  * Created by rpiontkovsky on 12/27/2016.
  */
