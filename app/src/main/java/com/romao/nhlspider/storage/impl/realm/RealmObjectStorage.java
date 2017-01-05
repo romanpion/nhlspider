@@ -21,7 +21,7 @@ public abstract class RealmObjectStorage<E extends RealmObject> {
         this.typeParameterClass = typeParameterClass;
     }
 
-    public List<E> readAll() {
+    public synchronized List<E> readAll() {
         Realm realm = Realm.getInstance(realmConfiguration);
         List<E> result = realm.where(typeParameterClass).findAll();
         return realm.copyFromRealm(result);

@@ -21,12 +21,12 @@ public class RealmGameStorage extends RealmObjectStorage<Game> implements GameSt
     }
 
     @Override
-    public Game readById(long id) {
+    public synchronized Game readById(long id) {
         return copy(prepareQuery().equalTo(FIELD_GAME_ID, id).findFirst());
     }
 
     @Override
-    public void upsert(final Game game) {
+    public synchronized void upsert(final Game game) {
         performTransaction(new StorageTransaction() {
             @Override
             public void execute(Realm realm) {
@@ -36,7 +36,7 @@ public class RealmGameStorage extends RealmObjectStorage<Game> implements GameSt
     }
 
     @Override
-    public void upsertAll(final List<Game> games) {
+    public synchronized void upsertAll(final List<Game> games) {
         performTransaction(new StorageTransaction() {
             @Override
             public void execute(Realm realm) {
