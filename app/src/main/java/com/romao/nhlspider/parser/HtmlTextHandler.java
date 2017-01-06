@@ -2,7 +2,6 @@ package com.romao.nhlspider.parser;
 
 
 import org.jdom2.Document;
-import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
@@ -24,7 +23,7 @@ public class HtmlTextHandler {
 
         try {
             InputStream stream = new ByteArrayInputStream(docString.getBytes("UTF-8"));
-            Document doc=sb.build(stream);
+            Document doc = sb.build(stream);
             return doc;
         } catch (JDOMException ex) {
             Timber.e(ex, ex.getMessage());
@@ -49,14 +48,14 @@ public class HtmlTextHandler {
         str = escapeNBSP(str);
         str = escapeComments(str);
 
-        str = str.substring(str.indexOf("<html>"), (str.indexOf("</html>")+7));
+        str = str.substring(str.indexOf("<html>"), (str.indexOf("</html>") + 7));
 
         return str;
     }
 
     private static String escapeComments(final String docString) {
         String str = docString;
-        while(str.contains("<!--")) {
+        while (str.contains("<!--")) {
             int startIndex = str.indexOf("<!--");
             int endIndex = str.indexOf("-->", startIndex);
 
@@ -83,9 +82,9 @@ public class HtmlTextHandler {
     private static String escapeNonClosingTag(final String str, final String tagName) {
         String tempStr = str;
         int tagPosition = Math.max(tempStr.indexOf("<" + tagName.toLowerCase()), tempStr.indexOf("<" + tagName.toUpperCase()));
-        while(tagPosition >= 0) {
+        while (tagPosition >= 0) {
             int closingIndex = tempStr.indexOf(">", tagPosition);
-            tempStr = tempStr.substring(0, tagPosition) + tempStr.substring(closingIndex+1, tempStr.length());
+            tempStr = tempStr.substring(0, tagPosition) + tempStr.substring(closingIndex + 1, tempStr.length());
             tagPosition = Math.max(tempStr.indexOf("<" + tagName.toLowerCase()), tempStr.indexOf("<" + tagName.toUpperCase()));
         }
         return tempStr;
@@ -94,7 +93,7 @@ public class HtmlTextHandler {
     private static String escapeClosingTag(final String str, final String tagName) {
         String tempStr = str;
         int tagStartPosition = getPositiveMin(tempStr.indexOf("<" + tagName.toLowerCase()), tempStr.indexOf("<" + tagName.toUpperCase()));
-        while(tagStartPosition >= 0) {
+        while (tagStartPosition >= 0) {
             int tagEndPosition = getPositiveMin(tempStr.indexOf("/" + tagName.toLowerCase() + ">"), tempStr.indexOf("/" + tagName.toUpperCase() + ">"));
             tempStr = tempStr.substring(0, tagStartPosition) + tempStr.substring(tagEndPosition + tagName.length() + 2, tempStr.length());
             tagStartPosition = getPositiveMin(tempStr.indexOf("<" + tagName.toLowerCase()), tempStr.indexOf("<" + tagName.toUpperCase()));
@@ -103,7 +102,7 @@ public class HtmlTextHandler {
     }
 
     private static final int getPositiveMin(final int a, final int b) {
-        if( a>=0 && b>=0 ) {
+        if (a >= 0 && b >= 0) {
             return Math.min(a, b);
         }
         return Math.max(a, b);

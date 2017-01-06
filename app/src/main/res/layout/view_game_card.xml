@@ -59,8 +59,9 @@
             <com.romao.nhlspider.ui.widget.StyledText
                 android:id="@+id/text_away_goals"
                 style="@style/TextAppearance.TeamGoals"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_marginLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_gravity="center_vertical"
                 />
@@ -75,8 +76,8 @@
                 android:id="@+id/text_final_period"
                 style="@style/TextAppearance"
                 android:textSize="18sp"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_gravity="center_vertical"
                 />
@@ -90,8 +91,9 @@
             <com.romao.nhlspider.ui.widget.StyledText
                 android:id="@+id/text_home_goals"
                 style="@style/TextAppearance.TeamGoals"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_marginRight="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_gravity="center_vertical"
                 />

@@ -8,6 +8,7 @@ import com.romao.nhlspider.web.WebService;
 
 import rx.Observable;
 import rx.Subscriber;
+import timber.log.Timber;
 
 /**
  * Created by rpiontkovsky on 1/3/2017.
@@ -52,9 +53,11 @@ public class DataManagerImpl implements DataManager {
                         final Game game = storage.games().readById(gameId);
                         gameSummary.setGameId(game.getGameId());
                         storage.gameSummary().upsert(gameSummary);
+                        Timber.v("upsert gameSummary #" + gameId);
 
                         game.setGameSummary(storage.gameSummary().readByGameId(gameId));
                         storage.games().upsert(game);
+                        Timber.v("upsert game #" + gameId);
                     }
                 });
             }

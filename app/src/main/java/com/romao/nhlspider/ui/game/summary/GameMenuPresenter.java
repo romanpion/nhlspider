@@ -69,7 +69,6 @@ public class GameMenuPresenter extends AbstractPresenter<GameMenuView> {
 
                     @Override
                     public void onNext(OkResult game) {
-                        subscription = null;
                     }
                 });
 
@@ -81,6 +80,7 @@ public class GameMenuPresenter extends AbstractPresenter<GameMenuView> {
     }
 
     protected void updateUi() {
+        Timber.v("update ui summary #" + gameId);
         Game game = storage.games().readById(gameId);
         updateUi(game);
     }

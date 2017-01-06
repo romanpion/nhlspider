@@ -4,17 +4,15 @@ import com.romao.nhlspider.PresenterActivity;
 import com.romao.nhlspider.ui.common.ToolbarDecorator;
 import com.romao.nhlspider.ui.common.TopActivityToolbarDecorator;
 
-import timber.log.Timber;
-
 /**
  * Created by rpiontkovsky on 12/27/2016.
  */
 
-public class GamesOverviewActivity extends PresenterActivity<GamesOverviewPresenter, GamesOverviewView> {
+public class GamesOverviewActivity extends PresenterActivity<GamesOverviewPresenter, GameOverviewView> {
 
     @Override
-    protected GamesOverviewView createView() {
-        return new GamesOverviewView(this);
+    protected GameOverviewView createView() {
+        return new GameOverviewView(this);
     }
 
     @Override

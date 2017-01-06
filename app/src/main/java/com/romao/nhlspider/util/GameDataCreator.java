@@ -44,7 +44,7 @@ public class GameDataCreator {
                 Game game = builder.addGameId(Long.parseLong(parts[0]))
                         .addHomeTeam(Team.valueOf(parts[2]))
                         .addAwayTeam(Team.valueOf(parts[3]))
-                        .addDate(DateTime.parse(parts[1]))
+                        .addDate(DateTime.parse(parts[1]).withZone(DateUtil.getDefaultTimeZone()))
                         .build();
                 result.add(game);
             }

@@ -19,12 +19,12 @@ public class RealmGameSummaryStorage extends RealmObjectStorage<GameSummary> imp
     }
 
     @Override
-    public GameSummary readByGameId(long gameId) {
+    public synchronized GameSummary readByGameId(long gameId) {
         return copy(prepareQuery().equalTo(FIELD_GAME_ID, gameId).findFirst());
     }
 
     @Override
-    public void upsert(final GameSummary gameSummary) {
+    public synchronized void upsert(final GameSummary gameSummary) {
         performTransaction(new StorageTransaction() {
             @Override
             public void execute(Realm realm) {
