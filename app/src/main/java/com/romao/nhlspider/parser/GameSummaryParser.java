@@ -53,22 +53,54 @@ public class GameSummaryParser extends DocParser {
 
     private int getHomePenalties() {
         String text = getPenaltyElement(true).getText();
-        return Integer.parseInt(text.split("-")[0].trim());
+        try {
+            return Integer.parseInt(text.split("-")[0].trim());
+        } catch (NumberFormatException ex) {
+            Timber.e("Error parsing home penalties : " + text);
+            return 0;
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            Timber.e("Error parsing home penalties");
+            return 0;
+        }
     }
 
     private int getHomePims() {
         String text = getPenaltyElement(true).getText();
-        return Integer.parseInt(text.split("-")[1].trim());
+        try {
+            return Integer.parseInt(text.split("-")[1].trim());
+        } catch (NumberFormatException ex) {
+            Timber.e("Error parsing home PIMs : " + text);
+            return 0;
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            Timber.e("Error parsing home PIMs");
+            return 0;
+        }
     }
 
     private int getAwayPenalties() {
         String text = getPenaltyElement(false).getText();
-        return Integer.parseInt(text.split("-")[0].trim());
+        try {
+            return Integer.parseInt(text.split("-")[0].trim());
+        } catch (NumberFormatException ex) {
+            Timber.e("Error parsing away penalties : " + text);
+            return 0;
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            Timber.e("Error parsing away penalties");
+            return 0;
+        }
     }
 
     private int getAwayPims() {
         String text = getPenaltyElement(false).getText();
-        return Integer.parseInt(text.split("-")[1].trim());
+        try {
+            return Integer.parseInt(text.split("-")[1].trim());
+        } catch (NumberFormatException ex) {
+            Timber.e("Error parsing away PIMs : " + text);
+            return 0;
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            Timber.e("Error parsing away PIMs");
+            return 0;
+        }
     }
 
     private Element getPenaltyElement(boolean home) {

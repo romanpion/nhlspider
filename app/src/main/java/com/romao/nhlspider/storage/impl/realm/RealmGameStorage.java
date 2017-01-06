@@ -3,6 +3,8 @@ package com.romao.nhlspider.storage.impl.realm;
 import com.romao.nhlspider.model.Game;
 import com.romao.nhlspider.storage.GameStorage;
 
+import org.joda.time.DateTime;
+
 import java.util.List;
 
 import io.realm.Realm;
@@ -15,6 +17,7 @@ import io.realm.RealmConfiguration;
 public class RealmGameStorage extends RealmObjectStorage<Game> implements GameStorage {
 
     private static final String FIELD_GAME_ID = "gameId";
+    private static final String FIELD_GAME_DATE = "date";
 
     public  RealmGameStorage(RealmConfiguration realmConfiguration) {
         super(realmConfiguration, Game.class);
@@ -43,5 +46,10 @@ public class RealmGameStorage extends RealmObjectStorage<Game> implements GameSt
                 realm.copyToRealmOrUpdate(games);
             }
         });
+    }
+
+    @Override
+    public List<Game> readByDate(DateTime dateTime) {
+        return copy(prepareQuery().equalTo(FIELD_GAME_DATE, dateTime.toString()).findAll());
     }
 }

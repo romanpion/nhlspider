@@ -13,26 +13,22 @@ import com.romao.nhlspider.ui.common.PresenterView;
 
 import java.util.List;
 
-import timber.log.Timber;
-
 /**
  * Created by rpiontkovsky on 12/27/2016.
  */
 
-public class GamesOverviewView extends AbstractPresenterView<GamesOverviewPresenter> implements PresenterView<GamesOverviewPresenter> {
+public class GameDayView extends AbstractPresenterView<GameDayPresenter> implements PresenterView<GameDayPresenter> {
 
     private RecyclerView listViewGames;
     private GamesAdapter adapter;
 
-    public GamesOverviewView(Context context) {
+    public GameDayView(Context context) {
         super(context);
         init();
     }
 
     private void init() {
-        inflate(getContext(), R.layout.view_games_overview, this);
-
-        Timber.v(new Throwable(), "init game overview");
+        inflate(getContext(), R.layout.view_game_day, this);
 
         listViewGames = (RecyclerView) findViewById(R.id.list_view_games);
         listViewGames.setLayoutManager(new LinearLayoutManager(getContext()));

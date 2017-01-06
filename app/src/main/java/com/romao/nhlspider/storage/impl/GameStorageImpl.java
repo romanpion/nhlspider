@@ -3,6 +3,8 @@ package com.romao.nhlspider.storage.impl;
 import com.romao.nhlspider.model.Game;
 import com.romao.nhlspider.storage.GameStorage;
 
+import org.joda.time.DateTime;
+
 import java.util.List;
 
 /**
@@ -29,5 +31,10 @@ public class GameStorageImpl implements GameStorage {
     @Override
     public void upsert(Game game) {
 
+    }
+
+    @Override
+    public List<Game> readByDate(DateTime dateTime) {
+        return null;
     }
 }

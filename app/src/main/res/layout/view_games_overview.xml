@@ -5,10 +5,54 @@
     android:layout_height="match_parent"
     >
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list_view_games"
-        android:layout_height="match_parent"
+    <RelativeLayout
         android:layout_width="match_parent"
-        />
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:id="@+id/layout_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:minHeight="56dp"
+            android:background="@color/colorPrimary"
+            >
+
+            <ImageButton
+                android:id="@+id/button_previous"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                style="@style/Button.Transparent"
+                android:src="@mipmap/ic_keyboard_arrow_left_white_36dp"
+                />
+
+            <com.romao.nhlspider.ui.widget.StyledText
+                android:id="@+id/text_date"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                style="@style/TextAppearance.GameDayDate"
+                />
+
+            <ImageButton
+                android:id="@+id/button_next"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                style="@style/Button.Transparent"
+                android:src="@mipmap/ic_keyboard_arrow_right_white_36dp"
+                />
+
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager_games"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_below="@id/layout_date"
+            />
+
+    </RelativeLayout>
 
 </merge>

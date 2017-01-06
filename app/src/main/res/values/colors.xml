@@ -8,4 +8,8 @@
     <color name="customBgSolid">#80C0C0C0</color>
     <color name="customBgPressed">#CDD8E6FF</color>
     <color name="customDivider">#696969</color>
+
+    <color name="customBgTransparentPressed">#20000000</color>
+
+    <color name="textColorSecondary">#E0000000</color>
 </resources>

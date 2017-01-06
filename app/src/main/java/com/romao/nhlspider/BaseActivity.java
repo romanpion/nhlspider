@@ -45,4 +45,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     public Route getRoute() {
         return route;
     }
+
+    public LocalStorage storage() {
+        return localStorage;
+    }
 }

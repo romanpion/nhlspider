@@ -1,5 +1,7 @@
 package com.romao.nhlspider.model;
 
+import com.romao.nhlspider.util.DateUtil;
+
 import org.joda.time.DateTime;
 
 import java.util.List;
@@ -19,17 +21,19 @@ public class Game extends RealmObject {
     private String homeTeam;
     private String awayTeam;
     private String date;
+    private String time;
 
     private GameSummary gameSummary;
 
     public Game() {
     }
 
-    private Game(long gameId, Team home, Team away, DateTime date) {
+    private Game(long gameId, Team home, Team away, DateTime date, Time time) {
         this.gameId = gameId;
         this.homeTeam = home.name();
         this.awayTeam = away.name();
         this.date = date.toString();
+        this.time = time.toString();
     }
 
     public long getGameId() {
@@ -76,6 +80,14 @@ public class Game extends RealmObject {
         return gameSummary != null ? gameSummary.getGoals() : null;
     }
 
+    public Time getTime() {
+        return Time.valueOf(time);
+    }
+
+    public void setTime(Time time) {
+        this.time = time.toString();
+    }
+
     public static class GameBuilder {
         private long id;
         private Team homeTeam;
@@ -119,7 +131,9 @@ public class Game extends RealmObject {
                 throw new IllegalArgumentException("Date not specified");
             }
 
-            return new Game(this.id, this.homeTeam, this.awayTeam, this.date);
+            Time time = new Time(this.date.hourOfDay().get(), this.date.minuteOfHour().get());
+            DateTime date = DateUtil.toStartOfDay(this.date);
+            return new Game(this.id, this.homeTeam, this.awayTeam, date, time);
         }
     }
 }
