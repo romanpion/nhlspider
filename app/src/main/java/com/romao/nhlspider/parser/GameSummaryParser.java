@@ -259,9 +259,8 @@ public class GameSummaryParser extends DocParser {
         if(this.document == null) {
             return null;
         }
-        List<Element> visitorPpElements = selectNodes("//table[@id='MainTable']/tr[11]/td/table/tr[2]/td/table/tr/td[1]/table/tr[2]/td");
-        //List<Element> visitorPpElements = (List<Element>)this.doc.selectNodes("//table[@id='MainTable']/tr[6]/td/table/tr[1]/td/table/tr/td/table/tr[1]/td[0]/table/tr[1]/td[1]");
-        return visitorPpElements;
+
+        return selectNodes("//table[@id='MainTable']/tr[11]/td/table/tr[2]/td/table/tr/td[1]/table/tr[2]/td");
     }
 
     public int getVisitorPPNew() {
@@ -274,16 +273,15 @@ public class GameSummaryParser extends DocParser {
     }
 
     public int getVisitorPP(String str) {
-        String ppString = str;
-        if(ppString.equals("-")) {
+        if(str.equals("-")) {
             return 0;
         }
-        int minusIndex = ppString.indexOf("-");
-        int slashIndex = ppString.indexOf("/");
+        int minusIndex = str.indexOf("-");
+        int slashIndex = str.indexOf("/");
         if(minusIndex<0 || slashIndex<0 || (minusIndex >= slashIndex)) {
             return 0;
         }
-        return Integer.parseInt(ppString.substring(minusIndex+1, slashIndex));
+        return Integer.parseInt(str.substring(minusIndex+1, slashIndex));
     }
 
     public int getVisitorPPGoalsNew() {
@@ -296,15 +294,14 @@ public class GameSummaryParser extends DocParser {
     }
 
     public int getVisitorPPGoals(String str) {
-        String ppString = str; //getVisitorPPSummaryString();
-        if(ppString.equals("-")) {
+        if(str.equals("-")) {
             return 0;
         }
-        int minusIndex = ppString.indexOf("-");
+        int minusIndex = str.indexOf("-");
         if(minusIndex<0) {
             return 0;
         }
-        return Integer.parseInt(ppString.substring(0, minusIndex));
+        return Integer.parseInt(str.substring(0, minusIndex));
     }
 
     public int getVisitorPPTimeNew() {
@@ -317,15 +314,14 @@ public class GameSummaryParser extends DocParser {
     }
 
     public int getVisitorPPTime(String str) {
-        String ppString = str; //getVisitorPPSummaryString();
-        if(ppString.equals("-")) {
+        if(str.equals("-")) {
             return 0;
         }
-        int slashIndex = ppString.indexOf("/");
+        int slashIndex = str.indexOf("/");
         if(slashIndex<0) {
             return 0;
         }
-        String timeString = ppString.substring(slashIndex+1);
+        String timeString = str.substring(slashIndex+1);
         int minutes = Integer.parseInt(timeString.split(":")[0]);
         int seconds = Integer.parseInt(timeString.split(":")[1]);
         return minutes*60 + seconds;
@@ -343,8 +339,7 @@ public class GameSummaryParser extends DocParser {
         if(this.document == null) {
             return null;
         }
-        List<Element> homePpElements = selectNodes("//table[@id='MainTable']/tr[11]/td/table/tr[2]/td/table/tr/td[2]/table/tr[2]/td");
-        return homePpElements;
+        return selectNodes("//table[@id='MainTable']/tr[11]/td/table/tr[2]/td/table/tr/td[2]/table/tr[2]/td");
     }
 
     public int getHomePPNew() {
@@ -357,16 +352,15 @@ public class GameSummaryParser extends DocParser {
     }
 
     public int getHomePP(String str) {
-        String ppString = str; //getHomePPSummaryString();
-        if(ppString.equals("-")) {
+        if(str.equals("-")) {
             return 0;
         }
-        int minusIndex = ppString.indexOf("-");
-        int slashIndex = ppString.indexOf("/");
+        int minusIndex = str.indexOf("-");
+        int slashIndex = str.indexOf("/");
         if(minusIndex<0 || slashIndex<0 || (minusIndex >= slashIndex)) {
             return 0;
         }
-        return Integer.parseInt(ppString.substring(minusIndex+1, slashIndex));
+        return Integer.parseInt(str.substring(minusIndex+1, slashIndex));
     }
 
     public int getHomePPGoalsNew() {
@@ -379,15 +373,14 @@ public class GameSummaryParser extends DocParser {
     }
 
     public int getHomePPGoals(String str) {
-        String ppString = str; //getHomePPSummaryString();
-        if(ppString.equals("-")) {
+        if(str.equals("-")) {
             return 0;
         }
-        int minusIndex = ppString.indexOf("-");
+        int minusIndex = str.indexOf("-");
         if(minusIndex<0) {
             return 0;
         }
-        return Integer.parseInt(ppString.substring(0, minusIndex));
+        return Integer.parseInt(str.substring(0, minusIndex));
     }
 
     public int getHomePPTimeNew() {
@@ -400,15 +393,14 @@ public class GameSummaryParser extends DocParser {
     }
 
     public int getHomePPTime(String str) {
-        String ppString = str; //getHomePPSummaryString();
-        if(ppString.equals("-")) {
+        if(str.equals("-")) {
             return 0;
         }
-        int slashIndex = ppString.indexOf("/");
+        int slashIndex = str.indexOf("/");
         if(slashIndex<0) {
             return 0;
         }
-        String timeString = ppString.substring(slashIndex+1);
+        String timeString = str.substring(slashIndex+1);
         int minutes = Integer.parseInt(timeString.split(":")[0]);
         int seconds = Integer.parseInt(timeString.split(":")[1]);
         return minutes*60 + seconds;
@@ -432,7 +424,7 @@ public class GameSummaryParser extends DocParser {
                     break;
                 }
             } catch (NumberFormatException ex) {
-                continue;
+                Timber.w(ex, ex.getMessage());
             }
         }
         return result;

@@ -22,8 +22,7 @@ public class DateUtil {
         }
 
         shortDateFormat.setTimeZone(defaultTimeZone.toTimeZone());
-        String result = shortDateFormat.format(dateTime.toDate());
-        return result;
+        return shortDateFormat.format(dateTime.toDate());
     }
 
     public static DateTime toStartOfDay(DateTime dateTime) {

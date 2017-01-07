@@ -1,7 +1,5 @@
 package com.romao.nhlspider.ui.game.summary;
 
-import android.view.View;
-
 import com.romao.nhlspider.PresenterActivity;
 import com.romao.nhlspider.ui.common.ChildActivityToolbarDecorator;
 import com.romao.nhlspider.ui.common.ToolbarDecorator;

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import timber.log.Timber;
 
 public class FontCache {
-    private static HashMap<String, Typeface> fontCache = new HashMap<>();
+    private static final HashMap<String, Typeface> fontCache = new HashMap<>();
 
     public static synchronized Typeface get(String name, Context context) {
         Typeface tf = fontCache.get(name);

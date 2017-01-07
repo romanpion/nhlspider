@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.romao.nhlspider.R;
 import com.romao.nhlspider.model.Game;
-import com.romao.nhlspider.model.Period;
 import com.romao.nhlspider.util.DateUtil;
 import com.romao.nhlspider.util.TeamImageResolver;
 
@@ -69,20 +68,20 @@ public class GameCardView extends FrameLayout {
                         textFinalPeriod.setText(null);
                         break;
                     case OVERTIME:
-                        textFinalPeriod.setText("OT");
+                        textFinalPeriod.setText(R.string.i18n_period_overtime);
                         break;
                     case SHOOTOUT:
-                        textFinalPeriod.setText("SO");
+                        textFinalPeriod.setText(R.string.i18n_period_shootout);
                         break;
                 }
             } else {
-                textHomeGoals.setText(" - ");
-                textAwayGoals.setText(" - ");
+                textHomeGoals.setText(R.string.i18n_score_placeholder);
+                textAwayGoals.setText(R.string.i18n_score_placeholder);
                 textFinalPeriod.setText(null);
             }
 
-            imageHomeTeam.setImageResource(TeamImageResolver.getTeamLogoResource(getContext(), game.getHomeTeam()));
-            imageAwayTeam.setImageResource(TeamImageResolver.getTeamLogoResource(getContext(), game.getAwayTeam()));
+            imageHomeTeam.setImageResource(TeamImageResolver.getTeamLogoResource(game.getHomeTeam()));
+            imageAwayTeam.setImageResource(TeamImageResolver.getTeamLogoResource(game.getAwayTeam()));
         } else {
             textGameDate.setText(null);
             textHomeTeam.setText(null);

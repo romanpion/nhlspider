@@ -21,11 +21,9 @@ import java.util.List;
 public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.ViewHolder> {
 
     private final List<Game> data = new ArrayList<>();
-    private final Context context;
     private final OnItemClickListener<Game> listener;
 
-    public GamesAdapter(final Context context, final OnItemClickListener<Game> listener) {
-        this.context = context;
+    public GamesAdapter(final OnItemClickListener<Game> listener) {
         this.listener = listener;
     }
 
@@ -40,8 +38,7 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.ViewHolder> 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_game_item, parent, false);
 
         // set the view's size, margins, paddings and layout parameters
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     @Override
@@ -64,8 +61,8 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private GameCardView cardView;
-        private View viewContent;
+        private final GameCardView cardView;
+        private final View viewContent;
 
         public ViewHolder(View rootView) {
             super(rootView);

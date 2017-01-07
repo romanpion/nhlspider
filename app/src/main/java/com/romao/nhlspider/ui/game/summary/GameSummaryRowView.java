@@ -46,6 +46,7 @@ public class GameSummaryRowView extends FrameLayout {
                 setCategory(a.getString(R.styleable.GameSummaryRowView_category));
             }
         }
+        a.recycle();
     }
 
     public void setCategory(CharSequence str) {

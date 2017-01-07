@@ -1,7 +1,5 @@
 package com.romao.nhlspider.util;
 
-import android.content.Context;
-
 import com.romao.nhlspider.R;
 import com.romao.nhlspider.model.Team;
 
@@ -11,7 +9,7 @@ import com.romao.nhlspider.model.Team;
 
 public class TeamImageResolver {
 
-    public static int getTeamLogoResource(Context context, Team team) {
+    public static int getTeamLogoResource(Team team) {
         switch (team) {
             case ANA:
                 return R.mipmap.ana;

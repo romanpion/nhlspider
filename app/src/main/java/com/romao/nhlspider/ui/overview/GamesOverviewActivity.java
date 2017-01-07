@@ -17,7 +17,7 @@ public class GamesOverviewActivity extends PresenterActivity<GamesOverviewPresen
 
     @Override
     protected GamesOverviewPresenter createPresenter() {
-        return new GamesOverviewPresenter(this, localStorage);
+        return new GamesOverviewPresenter(localStorage);
     }
 
     @Override

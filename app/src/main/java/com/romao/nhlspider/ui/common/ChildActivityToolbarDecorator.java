@@ -11,7 +11,7 @@ import com.romao.nhlspider.ToolbarActivity;
 
 public abstract class ChildActivityToolbarDecorator implements ToolbarDecorator {
 
-    private ToolbarActivity activity;
+    private final ToolbarActivity activity;
 
     public ChildActivityToolbarDecorator(ToolbarActivity activity) {
         this.activity = activity;

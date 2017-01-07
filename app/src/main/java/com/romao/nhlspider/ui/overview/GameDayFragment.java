@@ -27,7 +27,6 @@ public class GameDayFragment extends Fragment {
     }
 
 
-    private DateTime dateTime;
     private GameDayPresenter presenter;
     private GameDayView view;
 
@@ -35,7 +34,7 @@ public class GameDayFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        dateTime = DateUtil.toStartOfDay(new DateTime(getArguments().getLong("date")));
+        DateTime dateTime = DateUtil.toStartOfDay(new DateTime(getArguments().getLong("date")));
 
         BaseActivity activity = (BaseActivity) getActivity();
         presenter = new GameDayPresenter(activity, activity.storage(), dateTime);

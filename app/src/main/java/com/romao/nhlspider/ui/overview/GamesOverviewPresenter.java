@@ -1,6 +1,6 @@
 package com.romao.nhlspider.ui.overview;
 
-import com.romao.nhlspider.BaseActivity;
+import com.romao.nhlspider.R;
 import com.romao.nhlspider.model.Game;
 import com.romao.nhlspider.storage.LocalStorage;
 import com.romao.nhlspider.ui.common.AbstractPresenter;
@@ -23,15 +23,13 @@ import rx.schedulers.Schedulers;
 
 public class GamesOverviewPresenter extends AbstractPresenter<GameOverviewView> {
 
-    private final BaseActivity activity;
     private final LocalStorage storage;
     private DateTime startDate;
     private DateTime endDate;
     private int selectedPage = 0;
     private boolean gamesLoaded = false;
 
-    public GamesOverviewPresenter(BaseActivity activity, LocalStorage storage) {
-        this.activity = activity;
+    public GamesOverviewPresenter(LocalStorage storage) {
         this.storage = storage;
     }
 
@@ -101,7 +99,7 @@ public class GamesOverviewPresenter extends AbstractPresenter<GameOverviewView> 
     public void onDatePicked(int year, int month, int day) {
         DateTime normalizedDate = DateUtil.toStartOfDay(DateTime.now()).withDate(year, month + 1, day);
         if (normalizedDate.isAfter(endDate)) {
-            view.showErrorToast("Selected date is out of range");
+            view.showErrorToast(R.string.i18n_message_date_out_of_range);
             return;
         }
 

@@ -4,7 +4,6 @@ import com.romao.nhlspider.model.Player;
 import com.romao.nhlspider.model.Team;
 import com.romao.nhlspider.storage.PlayerStorage;
 
-import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 /**
