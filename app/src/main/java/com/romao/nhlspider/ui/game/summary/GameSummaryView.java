@@ -9,6 +9,7 @@ import com.romao.nhlspider.R;
 import com.romao.nhlspider.model.Game;
 import com.romao.nhlspider.model.GameSummary;
 import com.romao.nhlspider.ui.common.AbstractPresenterView;
+import com.romao.nhlspider.ui.renderer.GameCardRenderer;
 import com.romao.nhlspider.ui.view.GameCardView;
 
 /**
@@ -57,7 +58,11 @@ public class GameSummaryView extends AbstractPresenterView<GameSummaryPresenter>
     }
 
     public void setGame(Game game) {
-        viewGameCard.applyGame(game);
+        GameCardRenderer renderer = (GameCardRenderer) viewGameCard.getTag();
+        if (renderer == null) {
+            renderer = new GameCardRenderer(viewGameCard);
+        }
+        renderer.applyGame(game);
 
         if (game.getGameSummary() != null) {
             GameSummary gs = game.getGameSummary();

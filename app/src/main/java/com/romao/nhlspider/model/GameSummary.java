@@ -1,7 +1,7 @@
 package com.romao.nhlspider.model;
 
+import com.romao.nhlspider.model.enums.GameFinal;
 import com.romao.nhlspider.model.enums.GameState;
-import com.romao.nhlspider.model.enums.Period;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
@@ -32,6 +32,7 @@ public class GameSummary extends RealmObject {
     private int awayPpGoals;
     private String finalType;
     private String gameState;
+    private String inProgressState;
 
     private int attendance;
     private int gameLength;
@@ -198,12 +199,12 @@ public class GameSummary extends RealmObject {
         this.awayGoals = awayGoals;
     }
 
-    public Period getFinalType() {
-        return Period.valueOf(finalType);
+    public GameFinal getFinalType() {
+        return GameFinal.valueOf(finalType);
     }
 
-    public void setFinalType(Period period) {
-        this.finalType = period.name();
+    public void setFinalType(GameFinal gameFinal) {
+        this.finalType = gameFinal.name();
     }
 
     public GameState getGameState() {
@@ -212,5 +213,13 @@ public class GameSummary extends RealmObject {
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState.name();
+    }
+
+    public InProgressState getInProgressState() {
+        return InProgressState.fromString(inProgressState);
+    }
+
+    public void setInProgressState(InProgressState inProgressState) {
+        this.inProgressState = inProgressState.toString();
     }
 }

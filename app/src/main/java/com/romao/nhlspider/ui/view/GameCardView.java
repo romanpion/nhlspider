@@ -24,6 +24,7 @@ public class GameCardView extends FrameLayout {
     private TextView textHomeGoals;
     private TextView textAwayGoals;
     private TextView textGameState;
+    private TextView textProgressState;
     private ImageView imageHomeTeam;
     private ImageView imageAwayTeam;
 
@@ -53,59 +54,63 @@ public class GameCardView extends FrameLayout {
         imageHomeTeam = (ImageView) findViewById(R.id.image_home_team);
         imageAwayTeam = (ImageView) findViewById(R.id.image_away_team);
         textGameState = (TextView) findViewById(R.id.text_game_state);
+        textProgressState = (TextView) findViewById(R.id.text_progress_state);
     }
 
-    public void applyGame(Game game) {
-        if (game != null) {
-            textGameDate.setText(DateUtil.toShortString(game.getDate()));
-            textHomeTeam.setText(game.getHomeTeam().name());
-            textAwayTeam.setText(game.getAwayTeam().name());
+    public void setGameDate(String date) {
+        textGameDate.setText(date);
+    }
 
-            if (game.getGameSummary() != null) {
-                textHomeGoals.setText(String.valueOf(game.getGameSummary().getHomeScore()));
-                textAwayGoals.setText(String.valueOf(game.getGameSummary().getAwayScore()));
-                switch (game.getGameSummary().getGameState()) {
-                    case NOT_STARTED:
-                        textGameState.setText(null);
-                        break;
-                    case IN_PROGRESS:
-                        textGameState.setText("In Progress");
-                        textGameState.setTextColor(getContext().getResources().getColor(R.color.textColorAlert));
-                        break;
-                    case FINAL:
-                        String text = "FINAL";
-                        text += getFinalType(game.getGameSummary());
-                        textGameState.setText(text);
-                        textGameState.setTextColor(getContext().getResources().getColor(R.color.textColorSecondary));
-                        break;
-                }
-            } else {
-                textHomeGoals.setText(R.string.i18n_score_placeholder);
-                textAwayGoals.setText(R.string.i18n_score_placeholder);
-                textGameState.setText(null);
-            }
+    public void setHomeTeam(String value) {
+        textHomeTeam.setText(value);
+    }
 
-            imageHomeTeam.setImageResource(TeamImageResolver.getTeamLogoResource(game.getHomeTeam()));
-            imageAwayTeam.setImageResource(TeamImageResolver.getTeamLogoResource(game.getAwayTeam()));
+    public void setHomeTeamLogo(int logoResId) {
+        imageHomeTeam.setImageResource(logoResId);
+    }
+
+    public void setHomeTeamScore(int value) {
+        if (value < 0) {
+            textHomeGoals.setText(R.string.i18n_score_placeholder);
         } else {
-            textGameDate.setText(null);
-            textHomeTeam.setText(null);
-            textAwayTeam.setText(null);
-            imageHomeTeam.setImageResource(0);
-            imageAwayTeam.setImageResource(0);
-            textHomeGoals.setText(null);
-            textAwayGoals.setText(null);
+            textHomeGoals.setText(String.valueOf(value));
         }
     }
 
-    private String getFinalType(GameSummary gameSummary) {
-        switch (gameSummary.getFinalType()) {
-            case OVERTIME:
-                return " OT";
-            case SHOOTOUT:
-                return " SO";
-            default:
-                return "";
+    public void setAwayTeam(String value) {
+        textAwayTeam.setText(value);
+    }
+
+    public void setAwayTeamLogo(int logoResId) {
+        imageAwayTeam.setImageResource(logoResId);
+    }
+
+    public void setAwayTeamScore(int value) {
+        if (value < 0) {
+            textAwayGoals.setText(R.string.i18n_score_placeholder);
+        } else {
+            textAwayGoals.setText(String.valueOf(value));
         }
     }
+
+    public void setGameState(String value) {
+        textGameState.setText(value);
+    }
+
+    public void setGameStateColor(int color) {
+        textGameState.setTextColor(getContext().getResources().getColor(color));
+    }
+
+    public void setCardBackground(int resId) {
+        setBackgroundResource(resId);
+    }
+
+    public void setGameProgressState(String value) {
+        textProgressState.setText(value);
+    }
+
+    public void setGameProgressVisibility(boolean visible) {
+        textProgressState.setVisibility(visible ? VISIBLE : GONE);
+    }
+
 }

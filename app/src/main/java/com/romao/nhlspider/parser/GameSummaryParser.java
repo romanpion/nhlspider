@@ -1,8 +1,9 @@
 package com.romao.nhlspider.parser;
 
 import com.romao.nhlspider.model.GameSummary;
+import com.romao.nhlspider.model.InProgressState;
+import com.romao.nhlspider.model.enums.GameFinal;
 import com.romao.nhlspider.model.enums.GameState;
-import com.romao.nhlspider.model.enums.Period;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -34,6 +35,9 @@ public class GameSummaryParser extends DocParser {
         long start = System.currentTimeMillis();
         GameSummary gameSummary = new GameSummary();
         gameSummary.setGameState(getGameState());
+        if (gameSummary.getGameState() == GameState.IN_PROGRESS) {
+            gameSummary.setInProgressState(getInProgressState());
+        }
         gameSummary.setAttendance(getAttendance());
         gameSummary.setHomeScore(getHomeGoals());
         gameSummary.setAwayScore(getAwayGoals());
@@ -128,7 +132,7 @@ public class GameSummaryParser extends DocParser {
         return goals;
     }
 
-    private Period getGameFinalPeriod() {
+    private GameFinal getGameFinalPeriod() {
         if (this.document == null) {
             return null;
         }
@@ -136,11 +140,11 @@ public class GameSummaryParser extends DocParser {
         Element lastGoalPeriodElem = selectFirst("//table[@id='MainTable']/tr[4]/td/table/tr[last()]/td[2]");
         String lastGoalPeriod = lastGoalPeriodElem.getText();
         if (lastGoalPeriod.equals("SO")) {
-            return Period.SHOOTOUT;
+            return GameFinal.SHOOTOUT;
         } else if (lastGoalPeriod.equals("OT")) {
-            return Period.OVERTIME;
+            return GameFinal.OVERTIME;
         } else {
-            return Period.REGULATION;
+            return GameFinal.REGULATION;
         }
     }
 
@@ -462,6 +466,16 @@ public class GameSummaryParser extends DocParser {
         String timeString = td.getText();
 
         return ParserUtil.convertTimeStringToSeconds(timeString) + (period - 1) * 1200;
+    }
+
+    private InProgressState getInProgressState() {
+        if (this.document == null) {
+            return null;
+        }
+
+        Element elem = selectFirst("//table[@id='GameInfo']/tr[8]/td");
+        String text = elem.getText();
+        return new InProgressStateParser().parse(text);
     }
 
     private GameState getGameState() {

@@ -72,15 +72,33 @@
                 android:layout_height="0dp"
                 />
 
-            <com.romao.nhlspider.ui.widget.StyledText
-                android:id="@+id/text_game_state"
-                style="@style/TextAppearance"
-                android:textSize="18sp"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_gravity="center_vertical"
-                />
+                >
+
+                <com.romao.nhlspider.ui.widget.StyledText
+                    android:id="@+id/text_game_state"
+                    style="@style/TextAppearance"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+                <com.romao.nhlspider.ui.widget.StyledText
+                    android:id="@+id/text_progress_state"
+                    style="@style/TextAppearance"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"
+                    />
+            </LinearLayout>
 
             <android.support.v4.widget.Space
                 android:layout_width="0dp"

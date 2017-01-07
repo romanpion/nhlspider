@@ -4,8 +4,8 @@
     <string name="i18n.message.not_implemented">Not implemented yet</string>
     <string name="i18n.message.date.out_of_range">"Selected date is out of range"</string>
 
-    <string name="i18n.period.overtime">OT</string>
-    <string name="i18n.period.shootout">SO</string>
+    <string name="i18n.gameFinal.overtime">OT</string>
+    <string name="i18n.gameFinal.shootout">SO</string>
 
     <string name="i18n.score.placeholder"> - </string>
 
