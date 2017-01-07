@@ -1,7 +1,7 @@
 package com.romao.nhlspider.util;
 
 import com.romao.nhlspider.R;
-import com.romao.nhlspider.model.Team;
+import com.romao.nhlspider.model.enums.Team;
 
 /**
  * Created by rpiontkovsky on 12/27/2016.

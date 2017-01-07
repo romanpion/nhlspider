@@ -19,7 +19,7 @@ public class GameSummaryActivity extends PresenterActivity<GameSummaryPresenter,
     @Override
     protected GameSummaryPresenter createPresenter() {
         long gameId = getIntent().getLongExtra(Route.EXTRA_GAME_ID, 0L);
-        return new GameSummaryPresenter(localStorage, dataManager, gameId);
+        return new GameSummaryPresenter(localStorage, dataManager, connectionManager, gameId);
     }
 
     @Override

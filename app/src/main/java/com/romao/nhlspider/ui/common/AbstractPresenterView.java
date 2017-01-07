@@ -1,9 +1,11 @@
 package com.romao.nhlspider.ui.common;
 
 import android.content.Context;
+import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 /**
  * Created by rpiontkovsky on 12/27/2016.
@@ -37,5 +39,13 @@ public abstract class AbstractPresenterView<E extends Presenter> extends FrameLa
     @Override
     public View asView() {
         return this;
+    }
+
+    public void showErrorToast(String text) {
+        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+    }
+
+    public void showErrorToast(@StringRes int textResId) {
+        Toast.makeText(getContext(), textResId, Toast.LENGTH_LONG).show();
     }
 }

@@ -2,7 +2,6 @@ package com.romao.nhlspider.ui.overview;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.romao.nhlspider.R;
 import com.romao.nhlspider.ui.common.AbstractPresenterView;
@@ -125,13 +123,5 @@ public class GameOverviewView extends AbstractPresenterView<GamesOverviewPresent
                 month,
                 day
         ).show();
-    }
-
-    public void showErrorToast(String text) {
-        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
-    }
-
-    public void showErrorToast(@StringRes int textResId) {
-        Toast.makeText(getContext(), textResId, Toast.LENGTH_LONG).show();
     }
 }

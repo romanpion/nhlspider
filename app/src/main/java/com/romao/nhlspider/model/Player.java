@@ -1,5 +1,7 @@
 package com.romao.nhlspider.model;
 
+import com.romao.nhlspider.model.enums.Team;
+
 import io.realm.RealmObject;
 
 /**

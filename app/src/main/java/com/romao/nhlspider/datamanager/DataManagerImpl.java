@@ -30,11 +30,6 @@ public class DataManagerImpl implements DataManager {
             @Override
             public void call(final Subscriber<? super OkResult> subscriber) {
                 final Game game = storage.games().readById(gameId);
-                if (game != null && game.getGameSummary() != null) {
-                    subscriber.onNext(OkResult.INSTANCE);
-                    subscriber.onCompleted();
-                    return;
-                }
 
                 webService.getGameSummary(game).subscribe(new Subscriber<GameSummary>() {
                     @Override

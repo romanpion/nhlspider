@@ -1,7 +1,7 @@
 package com.romao.nhlspider.storage;
 
 import com.romao.nhlspider.model.Player;
-import com.romao.nhlspider.model.Team;
+import com.romao.nhlspider.model.enums.Team;
 
 /**
  * Created by rpiontkovsky on 1/3/2017.

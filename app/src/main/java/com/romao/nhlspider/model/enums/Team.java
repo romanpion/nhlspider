@@ -1,4 +1,4 @@
-package com.romao.nhlspider.model;
+package com.romao.nhlspider.model.enums;
 
 /**
  * Created by rpiontkovsky on 12/27/2016.

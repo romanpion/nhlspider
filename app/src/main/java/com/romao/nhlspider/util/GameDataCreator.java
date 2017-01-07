@@ -3,7 +3,7 @@ package com.romao.nhlspider.util;
 import android.content.Context;
 
 import com.romao.nhlspider.model.Game;
-import com.romao.nhlspider.model.Team;
+import com.romao.nhlspider.model.enums.Team;
 
 import org.joda.time.DateTime;
 

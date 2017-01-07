@@ -1,5 +1,6 @@
 package com.romao.nhlspider.model;
 
+import com.romao.nhlspider.model.enums.Team;
 import com.romao.nhlspider.util.DateUtil;
 
 import org.joda.time.DateTime;

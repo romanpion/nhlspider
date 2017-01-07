@@ -30,15 +30,6 @@ public class GameDayFragment extends Fragment {
     private GameDayPresenter presenter;
     private GameDayView view;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        DateTime dateTime = DateUtil.toStartOfDay(new DateTime(getArguments().getLong("date")));
-
-        BaseActivity activity = (BaseActivity) getActivity();
-        presenter = new GameDayPresenter(activity, activity.storage(), dateTime);
-    }
 
     @Nullable
     @Override
@@ -50,6 +41,13 @@ public class GameDayFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        if (presenter == null) {
+            DateTime dateTime = DateUtil.toStartOfDay(new DateTime(getArguments().getLong("date")));
+
+            BaseActivity activity = (BaseActivity) getActivity();
+            presenter = new GameDayPresenter(activity, activity.storage(), dateTime);
+        }
 
         presenter.attach(view);
         view.setPresenter(presenter);
