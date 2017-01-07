@@ -19,7 +19,6 @@ import java.util.List;
 
 public class GameDayView extends AbstractPresenterView<GameDayPresenter> implements PresenterView<GameDayPresenter> {
 
-    private RecyclerView listViewGames;
     private GamesAdapter adapter;
 
     public GameDayView(Context context) {
@@ -30,12 +29,12 @@ public class GameDayView extends AbstractPresenterView<GameDayPresenter> impleme
     private void init() {
         inflate(getContext(), R.layout.view_game_day, this);
 
-        listViewGames = (RecyclerView) findViewById(R.id.list_view_games);
+        RecyclerView listViewGames = (RecyclerView) findViewById(R.id.list_view_games);
         listViewGames.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new GamesAdapter(getContext(), new OnItemClickListener<Game>() {
+        adapter = new GamesAdapter(new OnItemClickListener<Game>() {
             @Override
             public void onItemClick(View view, Game game) {
-                presenter.onGameClicked(view, game);
+                presenter.onGameClicked(game);
             }
         });
         listViewGames.setAdapter(adapter);

@@ -13,7 +13,7 @@ public class GameComparator implements Comparator<Game> {
     @Override
     public int compare(Game o1, Game o2) {
         if (o1.getDate() == null && o2.getDate() == null) {
-
+            return 0;
         }
 
         if (o1.getDate() != null && o2.getDate() == null) {

@@ -1,5 +1,6 @@
 package com.romao.nhlspider.ui.common;
 
+import android.support.annotation.StringRes;
 import android.view.View;
 
 /**
@@ -13,4 +14,8 @@ public interface PresenterView<E extends Presenter> {
     E getPresenter();
 
     View asView();
+
+    void showErrorToast(String text);
+
+    void showErrorToast(@StringRes int textResId);
 }

@@ -14,11 +14,9 @@ public class GameDayAdapter extends FragmentStatePagerAdapter {
 
     private final int count;
     private final DateTime startDate;
-    private final DateTime endDate;
 
-    public GameDayAdapter(FragmentManager fragmentManager, DateTime start, DateTime end, int daysCount) {
+    public GameDayAdapter(FragmentManager fragmentManager, DateTime start, int daysCount) {
         super(fragmentManager);
-        endDate = end;
         startDate = start;
         count = daysCount;
     }

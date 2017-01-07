@@ -17,11 +17,7 @@ import com.romao.nhlspider.ui.common.ToolbarDecorator;
 
 public abstract class ToolbarActivity extends BaseActivity {
 
-    private ToolbarDecorator toolbarDecorator;
-
     private FrameLayout container;
-
-    private Toolbar toolbar;
 
 
     protected abstract ToolbarDecorator createToolbarDecorator();
@@ -29,11 +25,11 @@ public abstract class ToolbarActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        toolbarDecorator = createToolbarDecorator();
+        ToolbarDecorator toolbarDecorator = createToolbarDecorator();
 
         super.setContentView(toolbarDecorator.getContentLayoutResId());
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(toolbarDecorator.getActivityTitle());
 

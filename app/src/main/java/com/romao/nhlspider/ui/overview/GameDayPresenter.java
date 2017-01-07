@@ -62,7 +62,7 @@ public class GameDayPresenter extends AbstractPresenter<GameDayView> {
                 });
     }
 
-    public void onGameClicked(View sharedView, Game game) {
-        activity.getRoute().toGameDetails(activity, sharedView, game.getGameId());
+    public void onGameClicked(Game game) {
+        activity.getRoute().toGameDetails(activity, game.getGameId());
     }
 }

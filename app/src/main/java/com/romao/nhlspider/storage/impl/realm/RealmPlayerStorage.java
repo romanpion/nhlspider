@@ -1,10 +1,9 @@
 package com.romao.nhlspider.storage.impl.realm;
 
 import com.romao.nhlspider.model.Player;
-import com.romao.nhlspider.model.Team;
+import com.romao.nhlspider.model.enums.Team;
 import com.romao.nhlspider.storage.PlayerStorage;
 
-import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 /**

@@ -1,106 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_swiperefresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="2dp"
-    >
+    android:layout_height="match_parent">
 
-    <com.romao.nhlspider.ui.view.GameCardView
-        android:id="@+id/view_game_card"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="2dp">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:cardCornerRadius="2dp"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true">
-
-        <FrameLayout
-            android:id="@+id/layout_loading"
+        <com.romao.nhlspider.ui.view.GameCardView
+            android:id="@+id/view_game_card"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content" />
 
-            <ProgressBar
-                android:id="@+id/progress_bar_loading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:indeterminate="true" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/view_game_summary"
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
+
+            <FrameLayout
+                android:id="@+id/layout_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ProgressBar
+                    android:id="@+id/progress_bar_loading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminate="true" />
+
+            </FrameLayout>
+
 
             <LinearLayout
+                android:id="@+id/view_game_summary"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                >
+                android:padding="16dp">
 
                 <com.romao.nhlspider.ui.widget.StyledText
                     android:id="@+id/text_game_attendance"
+                    style="@style/TextAppearance.Attendance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextAppearance.Attendance"
-                    android:layout_gravity="center_horizontal"
-                    />
+                    android:layout_gravity="center_horizontal" />
 
                 <com.romao.nhlspider.ui.game.summary.GameSummaryRowView
                     android:id="@+id/view_category_shots"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:category="SHOTS"
-                    />
+                    app:category="SHOTS" />
 
                 <com.romao.nhlspider.ui.game.summary.GameSummaryRowView
                     android:id="@+id/view_category_powerplays"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:category="POWER PLAYS"
-                    />
+                    app:category="POWER PLAYS" />
 
                 <com.romao.nhlspider.ui.game.summary.GameSummaryRowView
                     android:id="@+id/view_category_ppgoals"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:category="PP GOALS"
-                    />
+                    app:category="PP GOALS" />
 
                 <com.romao.nhlspider.ui.game.summary.GameSummaryRowView
                     android:id="@+id/view_category_penalties"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:category="PENALTIES"
-                    />
+                    app:category="PENALTIES" />
 
                 <com.romao.nhlspider.ui.game.summary.GameSummaryRowView
                     android:id="@+id/view_category_pims"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:category="PIM"
-                    />
+                    app:category="PIM" />
 
                 <com.romao.nhlspider.ui.game.summary.GameSummaryRowView
                     android:id="@+id/view_category_save_pct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:category="SV %"
-                    />
+                    app:category="SV %" />
 
             </LinearLayout>
 
-        </FrameLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
 
-    </android.support.v7.widget.CardView>
-
-
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

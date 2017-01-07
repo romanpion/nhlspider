@@ -18,7 +18,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -30,7 +29,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 @Module
 public class ApplicationModule {
 
-    private Application app;
+    private final Application app;
 
     public ApplicationModule(Application app) {
         this.app = app;

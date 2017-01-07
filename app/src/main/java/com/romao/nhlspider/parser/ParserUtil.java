@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 
 public class ParserUtil {
 
-    private static List<Character> digits = new ArrayList<>();
+    private static final List<Character> digits = new ArrayList<>();
 
     static {
         digits.add('0');

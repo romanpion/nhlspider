@@ -18,9 +18,8 @@ import timber.log.Timber;
 public abstract class TopActivityToolbarDecorator implements ToolbarDecorator {
 
 
-    public ToolbarActivity activity;
+    public final ToolbarActivity activity;
     private ActionBarDrawerToggle mDrawerToggle;
-    private DrawerLayout mDrawerLayout;
 
     public TopActivityToolbarDecorator(ToolbarActivity activity) {
         this.activity = activity;
@@ -39,7 +38,7 @@ public abstract class TopActivityToolbarDecorator implements ToolbarDecorator {
 
         if (mDrawerToggle == null) {
             Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
-            mDrawerLayout = (DrawerLayout) activity.findViewById(R.id.layout_drawer);
+            DrawerLayout mDrawerLayout = (DrawerLayout) activity.findViewById(R.id.layout_drawer);
 
             mDrawerToggle = new ActionBarDrawerToggle(activity, mDrawerLayout, toolbar,
                     R.string.app_name, // nav drawer open - description for accessibility
@@ -54,7 +53,7 @@ public abstract class TopActivityToolbarDecorator implements ToolbarDecorator {
                 }
             };
 
-            mDrawerLayout.setDrawerListener(mDrawerToggle);
+            mDrawerLayout.addDrawerListener(mDrawerToggle);
             mDrawerToggle.syncState();
         }
     }

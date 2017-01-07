@@ -23,8 +23,7 @@ public class HtmlTextHandler {
 
         try {
             InputStream stream = new ByteArrayInputStream(docString.getBytes("UTF-8"));
-            Document doc = sb.build(stream);
-            return doc;
+            return sb.build(stream);
         } catch (JDOMException ex) {
             Timber.e(ex, ex.getMessage());
         } catch (IOException ex) {
@@ -101,7 +100,7 @@ public class HtmlTextHandler {
         return tempStr;
     }
 
-    private static final int getPositiveMin(final int a, final int b) {
+    private static int getPositiveMin(final int a, final int b) {
         if (a >= 0 && b >= 0) {
             return Math.min(a, b);
         }

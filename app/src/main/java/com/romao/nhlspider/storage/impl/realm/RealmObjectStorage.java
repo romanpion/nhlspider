@@ -42,7 +42,7 @@ public abstract class RealmObjectStorage<E extends RealmObject> {
 
     protected E copy(E e) {
         Realm realm = Realm.getInstance(realmConfiguration);
-        return realm.copyFromRealm(e);
+        return e == null ? null : realm.copyFromRealm(e);
     }
 
     protected List<E> copy(RealmResults<E> results) {

@@ -1,7 +1,5 @@
 package com.romao.nhlspider.ui.game.summary;
 
-import android.view.View;
-
 import com.romao.nhlspider.PresenterActivity;
 import com.romao.nhlspider.ui.common.ChildActivityToolbarDecorator;
 import com.romao.nhlspider.ui.common.ToolbarDecorator;
@@ -11,17 +9,17 @@ import com.romao.nhlspider.util.Route;
  * Created by rpiontkovsky on 12/27/2016.
  */
 
-public class GameMenuActivity extends PresenterActivity<GameMenuPresenter, GameMenuView> {
+public class GameSummaryActivity extends PresenterActivity<GameSummaryPresenter, GameSummaryView> {
 
     @Override
-    protected GameMenuView createView() {
-        return new GameMenuView(this);
+    protected GameSummaryView createView() {
+        return new GameSummaryView(this);
     }
 
     @Override
-    protected GameMenuPresenter createPresenter() {
+    protected GameSummaryPresenter createPresenter() {
         long gameId = getIntent().getLongExtra(Route.EXTRA_GAME_ID, 0L);
-        return new GameMenuPresenter(localStorage, dataManager, gameId);
+        return new GameSummaryPresenter(localStorage, dataManager, connectionManager, gameId);
     }
 
     @Override

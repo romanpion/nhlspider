@@ -3,11 +3,12 @@
     package="com.romao.nhlspider">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".NhlSpiderApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_spider"
+        android:icon="@mipmap/ic_nhl_puck"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -22,7 +23,7 @@
         <activity android:name=".ui.overview.GamesOverviewActivity">
         </activity>
 
-        <activity android:name=".ui.game.summary.GameMenuActivity">
+        <activity android:name=".ui.game.summary.GameSummaryActivity">
         </activity>
 
     </application>

@@ -1,6 +1,7 @@
 package com.romao.nhlspider.ui.game.summary;
 
 import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,7 +15,7 @@ import com.romao.nhlspider.ui.view.GameCardView;
  * Created by rpiontkovsky on 12/27/2016.
  */
 
-public class GameMenuView extends AbstractPresenterView<GameMenuPresenter> {
+public class GameSummaryView extends AbstractPresenterView<GameSummaryPresenter> {
 
     private GameCardView viewGameCard;
     private View layoutLoading;
@@ -26,8 +27,9 @@ public class GameMenuView extends AbstractPresenterView<GameMenuPresenter> {
     private GameSummaryRowView viewSummaryPenalties;
     private GameSummaryRowView viewSummaryPims;
     private GameSummaryRowView viewSummarySvPct;
+    private SwipeRefreshLayout layoutSwipeRefresh;
 
-    public GameMenuView(Context context) {
+    public GameSummaryView(Context context) {
         super(context);
         init();
     }
@@ -44,6 +46,14 @@ public class GameMenuView extends AbstractPresenterView<GameMenuPresenter> {
         viewSummaryPenalties = (GameSummaryRowView) viewGameSummary.findViewById(R.id.view_category_penalties);
         viewSummaryPims = (GameSummaryRowView) viewGameSummary.findViewById(R.id.view_category_pims);
         viewSummarySvPct = (GameSummaryRowView) viewGameSummary.findViewById(R.id.view_category_save_pct);
+        layoutSwipeRefresh = (SwipeRefreshLayout) findViewById(R.id.layout_swiperefresh);
+
+        layoutSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.onRefreshRequested();
+            }
+        });
     }
 
     public void setGame(Game game) {
@@ -80,5 +90,9 @@ public class GameMenuView extends AbstractPresenterView<GameMenuPresenter> {
             layoutLoading.setVisibility(GONE);
             viewGameSummary.setVisibility(VISIBLE);
         }
+    }
+
+    public void setRefreshFinished() {
+        layoutSwipeRefresh.setRefreshing(false);
     }
 }

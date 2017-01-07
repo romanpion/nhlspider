@@ -2,7 +2,6 @@ package com.romao.nhlspider;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 
 import com.romao.nhlspider.datamanager.DataManager;
@@ -12,8 +11,6 @@ import com.romao.nhlspider.util.Route;
 import com.romao.nhlspider.web.WebService;
 
 import javax.inject.Inject;
-
-import timber.log.Timber;
 
 /**
  * Created by rpiontkovsky on 12/27/2016.

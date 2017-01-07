@@ -28,7 +28,7 @@ public class RealmGameSummaryStorage extends RealmObjectStorage<GameSummary> imp
         performTransaction(new StorageTransaction() {
             @Override
             public void execute(Realm realm) {
-                realm.copyToRealm(gameSummary);
+                realm.copyToRealmOrUpdate(gameSummary);
             }
         });
     }

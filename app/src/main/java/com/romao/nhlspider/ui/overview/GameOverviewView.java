@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.romao.nhlspider.R;
 import com.romao.nhlspider.ui.common.AbstractPresenterView;
@@ -50,7 +49,7 @@ public class GameOverviewView extends AbstractPresenterView<GamesOverviewPresent
 
         inflate(activity, R.layout.view_games_overview, this);
         viewPager = (ViewPager) findViewById(R.id.view_pager_games);
-        adapter = new GameDayAdapter(activity.getSupportFragmentManager(), DateTime.now(), DateTime.now(), 1);
+        adapter = new GameDayAdapter(activity.getSupportFragmentManager(), DateTime.now(), 1);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -97,7 +96,7 @@ public class GameOverviewView extends AbstractPresenterView<GamesOverviewPresent
     public void setRange(DateTime start, DateTime end) {
         FragmentActivity activity = (FragmentActivity) getContext();
         int daysBetween = DateUtil.daysBetween(start, end);
-        adapter = new GameDayAdapter(activity.getSupportFragmentManager(), start, end, daysBetween);
+        adapter = new GameDayAdapter(activity.getSupportFragmentManager(), start, daysBetween);
         viewPager.setAdapter(adapter);
     }
 
@@ -124,9 +123,5 @@ public class GameOverviewView extends AbstractPresenterView<GamesOverviewPresent
                 month,
                 day
         ).show();
-    }
-
-    public void showErrorToast(String text) {
-        Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
     }
 }

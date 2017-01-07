@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.romao.nhlspider.R;
 import com.romao.nhlspider.model.Game;
-import com.romao.nhlspider.model.Period;
+import com.romao.nhlspider.model.GameSummary;
 import com.romao.nhlspider.util.DateUtil;
 import com.romao.nhlspider.util.TeamImageResolver;
 
@@ -23,7 +23,7 @@ public class GameCardView extends FrameLayout {
     private TextView textAwayTeam;
     private TextView textHomeGoals;
     private TextView textAwayGoals;
-    private TextView textFinalPeriod;
+    private TextView textGameState;
     private ImageView imageHomeTeam;
     private ImageView imageAwayTeam;
 
@@ -52,7 +52,7 @@ public class GameCardView extends FrameLayout {
         textAwayGoals = (TextView) findViewById(R.id.text_away_goals);
         imageHomeTeam = (ImageView) findViewById(R.id.image_home_team);
         imageAwayTeam = (ImageView) findViewById(R.id.image_away_team);
-        textFinalPeriod = (TextView) findViewById(R.id.text_final_period);
+        textGameState = (TextView) findViewById(R.id.text_game_state);
     }
 
     public void applyGame(Game game) {
@@ -62,27 +62,31 @@ public class GameCardView extends FrameLayout {
             textAwayTeam.setText(game.getAwayTeam().name());
 
             if (game.getGameSummary() != null) {
-                textHomeGoals.setText(String.valueOf(game.getGameSummary().getHomeGoals()));
-                textAwayGoals.setText(String.valueOf(game.getGameSummary().getAwayGoals()));
-                switch (game.getGameSummary().getFinalPeriod()) {
-                    case REGULATION:
-                        textFinalPeriod.setText(null);
+                textHomeGoals.setText(String.valueOf(game.getGameSummary().getHomeScore()));
+                textAwayGoals.setText(String.valueOf(game.getGameSummary().getAwayScore()));
+                switch (game.getGameSummary().getGameState()) {
+                    case NOT_STARTED:
+                        textGameState.setText(null);
                         break;
-                    case OVERTIME:
-                        textFinalPeriod.setText("OT");
+                    case IN_PROGRESS:
+                        textGameState.setText("In Progress");
+                        textGameState.setTextColor(getContext().getResources().getColor(R.color.textColorAlert));
                         break;
-                    case SHOOTOUT:
-                        textFinalPeriod.setText("SO");
+                    case FINAL:
+                        String text = "FINAL";
+                        text += getFinalType(game.getGameSummary());
+                        textGameState.setText(text);
+                        textGameState.setTextColor(getContext().getResources().getColor(R.color.textColorSecondary));
                         break;
                 }
             } else {
-                textHomeGoals.setText(" - ");
-                textAwayGoals.setText(" - ");
-                textFinalPeriod.setText(null);
+                textHomeGoals.setText(R.string.i18n_score_placeholder);
+                textAwayGoals.setText(R.string.i18n_score_placeholder);
+                textGameState.setText(null);
             }
 
-            imageHomeTeam.setImageResource(TeamImageResolver.getTeamLogoResource(getContext(), game.getHomeTeam()));
-            imageAwayTeam.setImageResource(TeamImageResolver.getTeamLogoResource(getContext(), game.getAwayTeam()));
+            imageHomeTeam.setImageResource(TeamImageResolver.getTeamLogoResource(game.getHomeTeam()));
+            imageAwayTeam.setImageResource(TeamImageResolver.getTeamLogoResource(game.getAwayTeam()));
         } else {
             textGameDate.setText(null);
             textHomeTeam.setText(null);
@@ -92,6 +96,16 @@ public class GameCardView extends FrameLayout {
             textHomeGoals.setText(null);
             textAwayGoals.setText(null);
         }
+    }
 
+    private String getFinalType(GameSummary gameSummary) {
+        switch (gameSummary.getFinalType()) {
+            case OVERTIME:
+                return " OT";
+            case SHOOTOUT:
+                return " SO";
+            default:
+                return "";
+        }
     }
 }
