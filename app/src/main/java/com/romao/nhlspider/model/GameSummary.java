@@ -13,10 +13,10 @@ public class GameSummary extends RealmObject {
     @PrimaryKey
     private long gameId;
 
+    private int homeScore;
+    private int awayScore;
     private int homeGoals;
     private int awayGoals;
-    private int homeRealGoals;
-    private int awayRealGoals;
     private int homeShots;
     private int awayShots;
     private int homePenalties;
@@ -42,20 +42,20 @@ public class GameSummary extends RealmObject {
         this.gameId = gameId;
     }
 
-    public int getHomeGoals() {
-        return homeGoals;
+    public int getHomeScore() {
+        return homeScore;
     }
 
-    public void setHomeGoals(int homeGoals) {
-        this.homeGoals = homeGoals;
+    public void setHomeScore(int homeScore) {
+        this.homeScore = homeScore;
     }
 
-    public int getAwayGoals() {
-        return awayGoals;
+    public int getAwayScore() {
+        return awayScore;
     }
 
-    public void setAwayGoals(int awayGoals) {
-        this.awayGoals = awayGoals;
+    public void setAwayScore(int awayScore) {
+        this.awayScore = awayScore;
     }
 
     public int getAttendance() {
@@ -139,11 +139,11 @@ public class GameSummary extends RealmObject {
     }
 
     public double getHomeSvPct() {
-        return Math.round(1000.0 * (awayShots - awayRealGoals) / awayShots) / 10.0;
+        return Math.round(1000.0 * (awayShots - awayGoals) / awayShots) / 10.0;
     }
 
     public double getAwaySvPct() {
-        return Math.round(1000.0 * (homeShots - homeRealGoals) / homeShots) / 10.0;
+        return Math.round(1000.0 * (homeShots - homeGoals) / homeShots) / 10.0;
     }
 
     public int getHomePowerPlays() {
@@ -178,20 +178,20 @@ public class GameSummary extends RealmObject {
         this.awayPpGoals = awayPpGoals;
     }
 
-    public int getHomeRealGoals() {
-        return homeRealGoals;
+    public int getHomeGoals() {
+        return homeGoals;
     }
 
-    public void setHomeRealGoals(int homeRealGoals) {
-        this.homeRealGoals = homeRealGoals;
+    public void setHomeGoals(int homeGoals) {
+        this.homeGoals = homeGoals;
     }
 
-    public int getAwayRealGoals() {
-        return awayRealGoals;
+    public int getAwayGoals() {
+        return awayGoals;
     }
 
-    public void setAwayRealGoals(int awayRealGoals) {
-        this.awayRealGoals = awayRealGoals;
+    public void setAwayGoals(int awayGoals) {
+        this.awayGoals = awayGoals;
     }
 
     public Period getFinalPeriod() {

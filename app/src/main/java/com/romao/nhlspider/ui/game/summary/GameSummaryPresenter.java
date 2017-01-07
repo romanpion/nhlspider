@@ -19,7 +19,7 @@ import timber.log.Timber;
  * Created by rpiontkovsky on 12/27/2016.
  */
 
-public class GameMenuPresenter extends AbstractPresenter<GameMenuView> {
+public class GameSummaryPresenter extends AbstractPresenter<GameSummaryView> {
 
     private final long gameId;
     private final DataManager dataManager;
@@ -37,7 +37,7 @@ public class GameMenuPresenter extends AbstractPresenter<GameMenuView> {
         }
     };
 
-    public GameMenuPresenter(final LocalStorage storage, final DataManager dataManager, long gameId) {
+    public GameSummaryPresenter(final LocalStorage storage, final DataManager dataManager, long gameId) {
         this.gameId = gameId;
         this.storage = storage;
         this.dataManager = dataManager;

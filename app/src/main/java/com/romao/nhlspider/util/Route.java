@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-import com.romao.nhlspider.ui.game.summary.GameMenuActivity;
+import com.romao.nhlspider.ui.game.summary.GameSummaryActivity;
 import com.romao.nhlspider.ui.overview.GamesOverviewActivity;
 
 /**
@@ -21,7 +21,7 @@ public class Route {
     }
 
     public void toGameDetails(Activity activity, long gameId) {
-        Intent intent = new Intent(activity, GameMenuActivity.class);
+        Intent intent = new Intent(activity, GameSummaryActivity.class);
         intent.putExtra(EXTRA_GAME_ID, gameId);
         activity.startActivity(intent);
     }

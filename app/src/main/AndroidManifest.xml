@@ -22,7 +22,7 @@
         <activity android:name=".ui.overview.GamesOverviewActivity">
         </activity>
 
-        <activity android:name=".ui.game.summary.GameMenuActivity">
+        <activity android:name=".ui.game.summary.GameSummaryActivity">
         </activity>
 
     </application>

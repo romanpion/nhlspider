@@ -61,8 +61,8 @@ public class GameCardView extends FrameLayout {
             textAwayTeam.setText(game.getAwayTeam().name());
 
             if (game.getGameSummary() != null) {
-                textHomeGoals.setText(String.valueOf(game.getGameSummary().getHomeGoals()));
-                textAwayGoals.setText(String.valueOf(game.getGameSummary().getAwayGoals()));
+                textHomeGoals.setText(String.valueOf(game.getGameSummary().getHomeScore()));
+                textAwayGoals.setText(String.valueOf(game.getGameSummary().getAwayScore()));
                 switch (game.getGameSummary().getFinalPeriod()) {
                     case REGULATION:
                         textFinalPeriod.setText(null);

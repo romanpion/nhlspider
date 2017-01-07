@@ -14,7 +14,7 @@ import com.romao.nhlspider.ui.view.GameCardView;
  * Created by rpiontkovsky on 12/27/2016.
  */
 
-public class GameMenuView extends AbstractPresenterView<GameMenuPresenter> {
+public class GameSummaryView extends AbstractPresenterView<GameSummaryPresenter> {
 
     private GameCardView viewGameCard;
     private View layoutLoading;
@@ -27,7 +27,7 @@ public class GameMenuView extends AbstractPresenterView<GameMenuPresenter> {
     private GameSummaryRowView viewSummaryPims;
     private GameSummaryRowView viewSummarySvPct;
 
-    public GameMenuView(Context context) {
+    public GameSummaryView(Context context) {
         super(context);
         init();
     }
