@@ -30,8 +30,10 @@ public class InProgressStateParser {
             return new InProgressState(period, time);
         }
 
-        if (str.startsWith("Overtime ")) {
-            String timeStr = str.replace("Overtime ", "").substring(1, str.indexOf(" "));
+        if (str.startsWith("OT ")) {
+            str = str.replace("OT ", "");
+            str = str.substring(1, str.indexOf(" "));
+            String timeStr = str;
             String[] timeParts = timeStr.split(":");
             int min = Integer.parseInt(timeParts[0]);
             int sec = Integer.parseInt(timeParts[1]);
@@ -50,7 +52,7 @@ public class InProgressStateParser {
                 str = str.replace("Period ", "");
                 int periodNum = Integer.parseInt(str);
                 period = getPeriodByNum(periodNum);
-            } else if (str.startsWith("Overtime")) {
+            } else if (str.startsWith("OT")) {
                 period = Period.OVERTIME;
             }
 

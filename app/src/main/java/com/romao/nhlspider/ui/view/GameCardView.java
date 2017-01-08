@@ -2,6 +2,7 @@ package com.romao.nhlspider.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,9 +25,11 @@ public class GameCardView extends FrameLayout {
     private TextView textHomeGoals;
     private TextView textAwayGoals;
     private TextView textGameState;
-    private TextView textProgressState;
+    private TextView textGamePeriod;
+    private TextView textTimeRemaining;
     private ImageView imageHomeTeam;
     private ImageView imageAwayTeam;
+    private View viewGameProgress;
 
     public GameCardView(Context context) {
         super(context);
@@ -54,7 +57,9 @@ public class GameCardView extends FrameLayout {
         imageHomeTeam = (ImageView) findViewById(R.id.image_home_team);
         imageAwayTeam = (ImageView) findViewById(R.id.image_away_team);
         textGameState = (TextView) findViewById(R.id.text_game_state);
-        textProgressState = (TextView) findViewById(R.id.text_progress_state);
+        textGamePeriod = (TextView) findViewById(R.id.text_game_period);
+        textTimeRemaining = (TextView) findViewById(R.id.text_time_remaining);
+        viewGameProgress = findViewById(R.id.layout_game_progress);
     }
 
     public void setGameDate(String date) {
@@ -97,20 +102,24 @@ public class GameCardView extends FrameLayout {
         textGameState.setText(value);
     }
 
-    public void setGameStateColor(int color) {
-        textGameState.setTextColor(getContext().getResources().getColor(color));
-    }
-
     public void setCardBackground(int resId) {
         setBackgroundResource(resId);
     }
 
-    public void setGameProgressState(String value) {
-        textProgressState.setText(value);
+    public void setGamePeriod(String value) {
+        textGamePeriod.setText(value);
+    }
+
+    public void setTimeRemaining(String value) {
+        textTimeRemaining.setText(value);
     }
 
     public void setGameProgressVisibility(boolean visible) {
-        textProgressState.setVisibility(visible ? VISIBLE : GONE);
+        viewGameProgress.setVisibility(visible ? VISIBLE : GONE);
+    }
+
+    public void setGameStateVisibility(boolean visible) {
+        textGameState.setVisibility(visible ? VISIBLE : GONE);
     }
 
 }

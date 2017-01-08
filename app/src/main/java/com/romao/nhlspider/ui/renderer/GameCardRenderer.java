@@ -1,6 +1,5 @@
 package com.romao.nhlspider.ui.renderer;
 
-import com.romao.nhlspider.R;
 import com.romao.nhlspider.model.Game;
 import com.romao.nhlspider.model.GameSummary;
 import com.romao.nhlspider.model.InProgressState;
@@ -28,6 +27,7 @@ public class GameCardRenderer {
             view.setHomeTeam(game.getHomeTeam().name());
             view.setAwayTeam(game.getAwayTeam().name());
             view.setGameProgressVisibility(game.getGameSummary() != null && game.getGameSummary().getGameState() == GameState.IN_PROGRESS);
+            view.setGameStateVisibility(game.getGameSummary() == null || game.getGameSummary().getGameState() != GameState.IN_PROGRESS);
 
             if (game.getGameSummary() != null) {
                 view.setHomeTeamScore(game.getGameSummary().getHomeScore());
@@ -36,40 +36,49 @@ public class GameCardRenderer {
                 switch (game.getGameSummary().getGameState()) {
                     case NOT_STARTED:
                         view.setGameState(null);
-                        view.setGameProgressState(null);
+                        view.setTimeRemaining(null);
+                        view.setGamePeriod(null);
                         break;
                     case IN_PROGRESS:
-                        view.setGameState("In Progress");
-                        view.setGameStateColor(R.color.textColorAlert);
-                        view.setGameProgressState(getDisplayProgressState(game.getGameSummary().getInProgressState()));
+                        view.setGameState(null);
+                        view.setGamePeriod(getPeriodDisplayName(game.getGameSummary().getInProgressState().getPeriod()));
+                        view.setTimeRemaining(getDisplayProgressState(game.getGameSummary().getInProgressState()));
                         break;
                     case FINAL:
                         String text = "FINAL";
                         text += getFinalType(game.getGameSummary());
                         view.setGameState(text);
-                        view.setGameStateColor(R.color.textColorSecondary);
-                        view.setGameProgressState(null);
+                        view.setTimeRemaining(null);
+                        view.setGamePeriod(null);
                         break;
                 }
             } else {
-                view.setHomeTeamScore(-1);
-                view.setAwayTeamScore(-1);
-                view.setGameState(null);
+                resetGameSummaryData();
             }
 
             view.setHomeTeamLogo(TeamImageResolver.getTeamLogoResource(game.getHomeTeam()));
             view.setAwayTeamLogo(TeamImageResolver.getTeamLogoResource(game.getAwayTeam()));
         } else {
-            view.setGameDate(null);
-            view.setHomeTeam(null);
-            view.setAwayTeam(null);
-            view.setHomeTeamLogo(0);
-            view.setAwayTeamLogo(0);
-            view.setHomeTeamScore(-1);
-            view.setAwayTeamScore(-1);
-            view.setGameState(null);
-            view.setGameProgressState(null);
+            resetAll();
         }
+    }
+
+    private void resetGameSummaryData() {
+        view.setHomeTeamScore(-1);
+        view.setAwayTeamScore(-1);
+        view.setGameState(null);
+        view.setTimeRemaining(null);
+        view.setGamePeriod(null);
+    }
+
+    private void resetAll() {
+        view.setGameDate(null);
+        view.setHomeTeam(null);
+        view.setAwayTeam(null);
+        view.setHomeTeamLogo(0);
+        view.setAwayTeamLogo(0);
+
+        resetGameSummaryData();
     }
 
     private String getFinalType(GameSummary gameSummary) {
@@ -89,10 +98,10 @@ public class GameCardRenderer {
         }
 
         if (state.getTimeRemaining() == 0) {
-            return "End of " + getPeriodDisplayName(state.getPeriod());
+            return "End";
         }
 
-        return getPeriodDisplayName(state.getPeriod()) + " (" + getTimeDisplayView(state.getTimeRemaining()) + " remaining)";
+        return getTimeDisplayView(state.getTimeRemaining());
     }
 
     private String getPeriodDisplayName(Period period) {
@@ -102,15 +111,15 @@ public class GameCardRenderer {
 
         switch (period) {
             case FIRST:
-                return "Period 1";
+                return "P1";
             case SECOND:
-                return "Period 2";
+                return "P2";
             case THIRD:
-                return "Period 3";
+                return "P3";
             case OVERTIME:
-                return "Overtime";
+                return "OT";
             case SHOOTOUT:
-                return "Shootout";
+                return "SO";
         }
 
         return null;
