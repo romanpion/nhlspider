@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.romao.nhlspider.R;
 import com.romao.nhlspider.model.Game;
 import com.romao.nhlspider.ui.common.OnItemClickListener;
+import com.romao.nhlspider.ui.renderer.GameCardRenderer;
 import com.romao.nhlspider.ui.view.GameCardView;
 
 import java.util.ArrayList;
@@ -44,7 +45,11 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Game game = data.get(position);
-        holder.cardView.applyGame(game);
+        GameCardRenderer renderer = (GameCardRenderer) holder.cardView.getTag();
+        if (renderer == null) {
+            renderer = new GameCardRenderer(holder.cardView);
+        }
+        renderer.applyGame(game);
         holder.viewContent.setBackgroundResource(game.getGameSummary() != null ? R.drawable.bg_clickable : R.drawable.bg_clickable_solid);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override

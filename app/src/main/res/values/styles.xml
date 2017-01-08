@@ -40,6 +40,18 @@
         <item name="android:background">@drawable/drawable_bg_button_transparent</item>
     </style>
 
+    <style name="TextAppearance.GamePeriod" parent="TextAppearance">
+        <item name="android:textColor">@color/textColorAlert</item>
+        <item name="android:textSize">18sp</item>
+        <item name="font">fonts/Roboto-Bold.ttf</item>
+    </style>
+
+    <style name="TextAppearance.GameTimeRemaining" parent="TextAppearance">
+        <item name="android:textColor">@color/textColorAlert</item>
+        <item name="android:textSize">12sp</item>
+        <item name="font">fonts/Roboto-Bold.ttf</item>
+    </style>
+
     <style name="Button.Transparent" parent="Base.Widget.AppCompat.Button">
         <item name="android:background">@drawable/drawable_bg_button_transparent</item>
     </style>

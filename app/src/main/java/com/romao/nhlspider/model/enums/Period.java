@@ -1,10 +1,10 @@
 package com.romao.nhlspider.model.enums;
 
 /**
- * Created by roman on 04/01/2017.
+ * Created by roman on 08/01/2017.
  */
 
 public enum Period {
 
-    OVERTIME, SHOOTOUT, REGULATION
+    FIRST, SECOND, THIRD, OVERTIME, SHOOTOUT
 }

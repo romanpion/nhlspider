@@ -2,6 +2,7 @@ package com.romao.nhlspider.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,8 +25,11 @@ public class GameCardView extends FrameLayout {
     private TextView textHomeGoals;
     private TextView textAwayGoals;
     private TextView textGameState;
+    private TextView textGamePeriod;
+    private TextView textTimeRemaining;
     private ImageView imageHomeTeam;
     private ImageView imageAwayTeam;
+    private View viewGameProgress;
 
     public GameCardView(Context context) {
         super(context);
@@ -53,59 +57,73 @@ public class GameCardView extends FrameLayout {
         imageHomeTeam = (ImageView) findViewById(R.id.image_home_team);
         imageAwayTeam = (ImageView) findViewById(R.id.image_away_team);
         textGameState = (TextView) findViewById(R.id.text_game_state);
+        textGamePeriod = (TextView) findViewById(R.id.text_game_period);
+        textTimeRemaining = (TextView) findViewById(R.id.text_time_remaining);
+        viewGameProgress = findViewById(R.id.layout_game_progress);
     }
 
-    public void applyGame(Game game) {
-        if (game != null) {
-            textGameDate.setText(DateUtil.toShortString(game.getDate()));
-            textHomeTeam.setText(game.getHomeTeam().name());
-            textAwayTeam.setText(game.getAwayTeam().name());
+    public void setGameDate(String date) {
+        textGameDate.setText(date);
+    }
 
-            if (game.getGameSummary() != null) {
-                textHomeGoals.setText(String.valueOf(game.getGameSummary().getHomeScore()));
-                textAwayGoals.setText(String.valueOf(game.getGameSummary().getAwayScore()));
-                switch (game.getGameSummary().getGameState()) {
-                    case NOT_STARTED:
-                        textGameState.setText(null);
-                        break;
-                    case IN_PROGRESS:
-                        textGameState.setText("In Progress");
-                        textGameState.setTextColor(getContext().getResources().getColor(R.color.textColorAlert));
-                        break;
-                    case FINAL:
-                        String text = "FINAL";
-                        text += getFinalType(game.getGameSummary());
-                        textGameState.setText(text);
-                        textGameState.setTextColor(getContext().getResources().getColor(R.color.textColorSecondary));
-                        break;
-                }
-            } else {
-                textHomeGoals.setText(R.string.i18n_score_placeholder);
-                textAwayGoals.setText(R.string.i18n_score_placeholder);
-                textGameState.setText(null);
-            }
+    public void setHomeTeam(String value) {
+        textHomeTeam.setText(value);
+    }
 
-            imageHomeTeam.setImageResource(TeamImageResolver.getTeamLogoResource(game.getHomeTeam()));
-            imageAwayTeam.setImageResource(TeamImageResolver.getTeamLogoResource(game.getAwayTeam()));
+    public void setHomeTeamLogo(int logoResId) {
+        imageHomeTeam.setImageResource(logoResId);
+    }
+
+    public void setHomeTeamScore(String value) {
+        textHomeGoals.setText(value);
+    }
+
+    public void setHomeTeamScore(int value) {
+        textHomeGoals.setText(String.valueOf(value));
+    }
+
+    public void setAwayTeam(String value) {
+        textAwayTeam.setText(value);
+    }
+
+    public void setAwayTeamScore(String value) {
+        textAwayGoals.setText(value);
+    }
+
+    public void setAwayTeamLogo(int logoResId) {
+        imageAwayTeam.setImageResource(logoResId);
+    }
+
+    public void setAwayTeamScore(int value) {
+        if (value < 0) {
+            textAwayGoals.setText(R.string.i18n_score_placeholder);
         } else {
-            textGameDate.setText(null);
-            textHomeTeam.setText(null);
-            textAwayTeam.setText(null);
-            imageHomeTeam.setImageResource(0);
-            imageAwayTeam.setImageResource(0);
-            textHomeGoals.setText(null);
-            textAwayGoals.setText(null);
+            textAwayGoals.setText(String.valueOf(value));
         }
     }
 
-    private String getFinalType(GameSummary gameSummary) {
-        switch (gameSummary.getFinalType()) {
-            case OVERTIME:
-                return " OT";
-            case SHOOTOUT:
-                return " SO";
-            default:
-                return "";
-        }
+    public void setGameState(String value) {
+        textGameState.setText(value);
     }
+
+    public void setCardBackground(int resId) {
+        setBackgroundResource(resId);
+    }
+
+    public void setGamePeriod(String value) {
+        textGamePeriod.setText(value);
+    }
+
+    public void setTimeRemaining(String value) {
+        textTimeRemaining.setText(value);
+    }
+
+    public void setGameProgressVisibility(boolean visible) {
+        viewGameProgress.setVisibility(visible ? VISIBLE : GONE);
+    }
+
+    public void setGameStateVisibility(boolean visible) {
+        textGameState.setVisibility(visible ? VISIBLE : GONE);
+    }
+
 }

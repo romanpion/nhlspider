@@ -12,5 +12,5 @@
     <color name="customBgTransparentPressed">#20000000</color>
 
     <color name="textColorSecondary">#E0000000</color>
-    <color name="textColorAlert">#E0F02020</color>
+    <color name="textColorAlert">#E0F04520</color>
 </resources>

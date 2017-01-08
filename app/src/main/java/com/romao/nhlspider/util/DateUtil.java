@@ -14,6 +14,7 @@ import java.util.Locale;
 public class DateUtil {
 
     private static final DateFormat shortDateFormat = new SimpleDateFormat("MMM d, yyyy", Locale.US);
+    private static final DateFormat amPmTimeFormat = new SimpleDateFormat("h:mm a", Locale.US);
     private static final DateTimeZone defaultTimeZone = DateTimeZone.forID("America/New_York");
 
     public static String toShortString(DateTime dateTime) {
@@ -30,7 +31,6 @@ public class DateUtil {
             throw new AssertionError("Datetime should not be null");
         }
 
-        shortDateFormat.setTimeZone(defaultTimeZone.toTimeZone());
         return dateTime.withZone(defaultTimeZone).withTime(0, 0, 0, 0);
     }
 
@@ -45,5 +45,14 @@ public class DateUtil {
         DateTime dt2 = d2.withTime(0, 0, 0, 0);
 
         return  (int) ((dt2.getMillis() - dt1.getMillis()) / millisInOneDay);
+    }
+
+    public static String getAmPmTime(DateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+
+        amPmTimeFormat.setTimeZone(defaultTimeZone.toTimeZone());
+        return amPmTimeFormat.format(dateTime.toDate());
     }
 }
