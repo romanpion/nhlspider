@@ -74,16 +74,20 @@ public class GameCardView extends FrameLayout {
         imageHomeTeam.setImageResource(logoResId);
     }
 
+    public void setHomeTeamScore(String value) {
+        textHomeGoals.setText(value);
+    }
+
     public void setHomeTeamScore(int value) {
-        if (value < 0) {
-            textHomeGoals.setText(R.string.i18n_score_placeholder);
-        } else {
-            textHomeGoals.setText(String.valueOf(value));
-        }
+        textHomeGoals.setText(String.valueOf(value));
     }
 
     public void setAwayTeam(String value) {
         textAwayTeam.setText(value);
+    }
+
+    public void setAwayTeamScore(String value) {
+        textAwayGoals.setText(value);
     }
 
     public void setAwayTeamLogo(int logoResId) {

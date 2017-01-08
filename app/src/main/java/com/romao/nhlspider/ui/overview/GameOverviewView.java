@@ -101,7 +101,7 @@ public class GameOverviewView extends AbstractPresenterView<GamesOverviewPresent
     }
 
     public void setCurrentItem(int page) {
-        viewPager.setCurrentItem(page);
+        viewPager.setCurrentItem(page, true);
     }
 
     public void setNextEnabled(boolean value) {

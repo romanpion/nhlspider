@@ -21,6 +21,7 @@ public class GameSummaryView extends AbstractPresenterView<GameSummaryPresenter>
     private GameCardView viewGameCard;
     private View layoutLoading;
     private View viewGameSummary;
+    private View viewGameNotStarted;
     private TextView textGameAttendance;
     private GameSummaryRowView viewSummaryShots;
     private GameSummaryRowView viewSummaryPowerplays;
@@ -40,6 +41,7 @@ public class GameSummaryView extends AbstractPresenterView<GameSummaryPresenter>
         viewGameCard = (GameCardView) findViewById(R.id.view_game_card);
         layoutLoading = findViewById(R.id.layout_loading);
         viewGameSummary = findViewById(R.id.view_game_summary);
+        viewGameNotStarted = findViewById(R.id.view_not_started);
         textGameAttendance = (TextView) viewGameSummary.findViewById(R.id.text_game_attendance);
         viewSummaryShots = (GameSummaryRowView) viewGameSummary.findViewById(R.id.view_category_shots);
         viewSummaryPowerplays = (GameSummaryRowView) viewGameSummary.findViewById(R.id.view_category_powerplays);
@@ -82,18 +84,21 @@ public class GameSummaryView extends AbstractPresenterView<GameSummaryPresenter>
             viewSummaryPims.setAwayText(gs.getAwayPims());
             viewSummarySvPct.setHomeText(gs.getHomeSvPct());
             viewSummarySvPct.setAwayText(gs.getAwaySvPct());
+
+            viewGameSummary.setVisibility(VISIBLE);
+            viewGameNotStarted.setVisibility(GONE);
         } else {
             textGameAttendance.setText(" - ");
+            viewGameSummary.setVisibility(GONE);
+            viewGameNotStarted.setVisibility(VISIBLE);
         }
     }
 
     public void setLoading(boolean flag) {
         if (flag) {
             layoutLoading.setVisibility(VISIBLE);
-            viewGameSummary.setVisibility(GONE);
         } else {
             layoutLoading.setVisibility(GONE);
-            viewGameSummary.setVisibility(VISIBLE);
         }
     }
 

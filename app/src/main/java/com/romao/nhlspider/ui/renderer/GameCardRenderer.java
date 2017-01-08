@@ -9,6 +9,8 @@ import com.romao.nhlspider.ui.view.GameCardView;
 import com.romao.nhlspider.util.DateUtil;
 import com.romao.nhlspider.util.TeamImageResolver;
 
+import org.joda.time.DateTime;
+
 /**
  * Created by roman on 08/01/2017.
  */
@@ -54,6 +56,7 @@ public class GameCardRenderer {
                 }
             } else {
                 resetGameSummaryData();
+                view.setGameState(getDisplayStartTime(game));
             }
 
             view.setHomeTeamLogo(TeamImageResolver.getTeamLogoResource(game.getHomeTeam()));
@@ -64,8 +67,8 @@ public class GameCardRenderer {
     }
 
     private void resetGameSummaryData() {
-        view.setHomeTeamScore(-1);
-        view.setAwayTeamScore(-1);
+        view.setHomeTeamScore(null);
+        view.setAwayTeamScore(null);
         view.setGameState(null);
         view.setTimeRemaining(null);
         view.setGamePeriod(null);
@@ -130,5 +133,14 @@ public class GameCardRenderer {
         int sec = time % 60;
 
         return (min < 10 ? "0" : "") + min + ":" + (sec < 10 ? "0" : "") + sec;
+    }
+
+    private String getDisplayStartTime(Game game) {
+        if (game == null || game.getDate() == null) {
+            return null;
+        }
+
+        DateTime dateTime = game.getDate().withTime(game.getTime().getHour(), game.getTime().getMinute(), 0, 0);
+        return DateUtil.getAmPmTime(dateTime);
     }
 }
