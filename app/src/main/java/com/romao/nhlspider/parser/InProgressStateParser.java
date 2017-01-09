@@ -1,7 +1,5 @@
 package com.romao.nhlspider.parser;
 
-import android.support.annotation.Nullable;
-
 import com.romao.nhlspider.model.InProgressState;
 import com.romao.nhlspider.model.enums.Period;
 
@@ -20,13 +18,10 @@ public class InProgressStateParser {
             str = str.replace("Period ", "");
             int periodNum = Integer.parseInt(str.substring(0, 1));
 
-            Period period = getPeriodByNum(periodNum);
+            Period period = Period.getByNum(periodNum);
 
             String timeStr = str.substring(3, str.indexOf(" ", 3));
-            String[] timeParts = timeStr.split(":");
-            int min = Integer.parseInt(timeParts[0]);
-            int sec = Integer.parseInt(timeParts[1]);
-            int time = min * 60 + sec;
+            int time = GameTimeFormat.convertToSeconds(timeStr);
             return new InProgressState(period, time);
         }
 
@@ -34,10 +29,7 @@ public class InProgressStateParser {
             str = str.replace("OT ", "");
             str = str.substring(1, str.indexOf(" "));
             String timeStr = str;
-            String[] timeParts = timeStr.split(":");
-            int min = Integer.parseInt(timeParts[0]);
-            int sec = Integer.parseInt(timeParts[1]);
-            int time = min * 60 + sec;
+            int time = GameTimeFormat.convertToSeconds(timeStr);
             return new InProgressState(Period.OVERTIME, time);
         }
 
@@ -51,7 +43,7 @@ public class InProgressStateParser {
             if (str.startsWith("Period ")) {
                 str = str.replace("Period ", "");
                 int periodNum = Integer.parseInt(str);
-                period = getPeriodByNum(periodNum);
+                period = Period.getByNum(periodNum);
             } else if (str.startsWith("OT")) {
                 period = Period.OVERTIME;
             }
@@ -62,20 +54,4 @@ public class InProgressStateParser {
         throw new IllegalArgumentException("InProgressState raw format invalid : " + str);
     }
 
-    @Nullable
-    private Period getPeriodByNum(int periodNum) {
-        Period period = null;
-        switch (periodNum) {
-            case 1:
-                period = Period.FIRST;
-                break;
-            case 2:
-                period = Period.SECOND;
-                break;
-            case 3:
-                period = Period.THIRD;
-                break;
-        }
-        return period;
-    }
 }

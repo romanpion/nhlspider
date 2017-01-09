@@ -1,6 +1,7 @@
 package com.romao.nhlspider.parser;
 
 import com.romao.nhlspider.model.GameSummary;
+import com.romao.nhlspider.model.Goal;
 import com.romao.nhlspider.model.InProgressState;
 import com.romao.nhlspider.model.enums.GameFinal;
 import com.romao.nhlspider.model.enums.GameState;
@@ -8,6 +9,7 @@ import com.romao.nhlspider.model.enums.GameState;
 import org.jdom2.Document;
 import org.jdom2.Element;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -55,11 +57,31 @@ public class GameSummaryParser extends DocParser {
         gameSummary.setAwayPpGoals(getVisitorPPGoalsNew());
         gameSummary.setAwayGoals(getRealAwayGoals());
         gameSummary.setFinalType(getGameFinalPeriod());
+        gameSummary.setGoals(getGoals());
 
         long finish = System.currentTimeMillis();
         Timber.v("parsing : " + (finish - start) + " ms");
 
         return gameSummary;
+    }
+
+    private List<Goal> getGoals() {
+        final List<Goal> goals = new ArrayList<>();
+
+        if (this.document == null) {
+            return goals;
+        }
+
+        GoalRowParser parser = new GoalRowParser();
+        Element goalsTable = selectFirst("//table[@id='MainTable']/tr[4]/td/table");
+        for (int i = 1; i < goalsTable.getChildren().size(); i++) {
+            Goal goal = parser.parse(goalsTable.getChildren().get(i));
+            if (goal != null) {
+                goals.add(goal);
+            }
+        }
+
+        return goals;
     }
 
     private int getHomePenalties() {

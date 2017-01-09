@@ -3,6 +3,8 @@ package com.romao.nhlspider.model;
 import com.romao.nhlspider.model.enums.GameFinal;
 import com.romao.nhlspider.model.enums.GameState;
 
+import java.util.List;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -85,6 +87,12 @@ public class GameSummary extends RealmObject {
 
     public void setGoals(RealmList<Goal> goals) {
         this.goals = goals;
+    }
+
+    public void setGoals(List<Goal> goals) {
+        RealmList<Goal> realmGoals = new RealmList<>();
+        realmGoals.addAll(goals);
+        setGoals(realmGoals);
     }
 
     public String getArenaName() {

@@ -35,6 +35,28 @@ public enum Team {
     TOR,
     VAN,
     WPG,
-    WSH
+    WSH;
+
+    public static Team getByShortName(String name) {
+        if (name == null) {
+            return null;
+        }
+
+        if (name.indexOf('.') < 0) {
+            return Team.valueOf(name);
+        }
+
+        if (name.equals("T.B")) {
+            return TBL;
+        } else if (name.equals("S.J")) {
+            return SJS;
+        } else if (name.equals("N.J")) {
+            return NJD;
+        } else if (name.equals("L.A")) {
+            return LAK;
+        }
+
+        return null;
+    }
 
 }
