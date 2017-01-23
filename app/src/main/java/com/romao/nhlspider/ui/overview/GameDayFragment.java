@@ -55,8 +55,10 @@ public class GameDayFragment extends Fragment {
 
     @Override
     public void onStop() {
-        presenter.detach(view);
-        view.setPresenter(null);
+        if (presenter != null) {
+            presenter.detach(view);
+            view.setPresenter(null);
+        }
 
         super.onStop();
     }

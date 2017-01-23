@@ -12,6 +12,8 @@ import com.romao.nhlspider.web.WebService;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 /**
  * Created by rpiontkovsky on 12/27/2016.
  */
@@ -31,12 +33,18 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        long start = System.currentTimeMillis();
         super.onCreate(savedInstanceState);
         init();
+        long finish = System.currentTimeMillis();
+        Timber.v("nhl base.onCreate[" + getClass().getSimpleName() + "] : " + (finish - start) + " ms");
     }
 
     private void init() {
+        long start = System.currentTimeMillis();
         NhlSpiderApp.instance().appComponent().inject(this);
+        long finish = System.currentTimeMillis();
+        Timber.v("nhl inject : " + (finish - start) + " ms");
     }
 
     public Route getRoute() {

@@ -1,6 +1,7 @@
 package com.romao.nhlspider;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.romao.nhlspider.di.ApplicationComponent;
 import com.romao.nhlspider.di.ApplicationModule;
@@ -21,16 +22,20 @@ public class NhlSpiderApp extends Application {
 
     @Override
     public void onCreate() {
+        initLogger();
+        Timber.v("nhl on app create");
         super.onCreate();
         instance = this;
 
         initDatabase();
-        initLogger();
         initDI();
     }
 
     private void initDatabase() {
+        long start = System.currentTimeMillis();
         Realm.init(this);
+        long finish = System.currentTimeMillis();
+        Timber.v("nhl initDatabase : " + (finish - start) + " ms");
     }
 
     private void initLogger() {
@@ -39,10 +44,13 @@ public class NhlSpiderApp extends Application {
     }
 
     private void initDI() {
+        long start = System.currentTimeMillis();
         this.applicationComponent = DaggerApplicationComponent
                 .builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
+        long finish = System.currentTimeMillis();
+        Timber.v("nhl initDI : " + (finish - start) + " ms");
     }
 
     ApplicationComponent appComponent() {
