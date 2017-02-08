@@ -24,11 +24,14 @@ public class NhlSpiderApp extends Application {
     public void onCreate() {
         initLogger();
         Timber.v("nhl on app create");
+        long start = System.currentTimeMillis();
         super.onCreate();
         instance = this;
 
         initDatabase();
         initDI();
+        long finish = System.currentTimeMillis();
+        Timber.v("app created in " + (finish - start) + " ms");
     }
 
     private void initDatabase() {

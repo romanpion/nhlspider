@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+
+        <ImageView
+            android:id="@+id/image_team"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center_vertical"
+            android:scaleType="centerInside"
+            />
+
+        <com.romao.nhlspider.ui.widget.StyledText
+            android:id="@+id/text_goal_time"
+            android:layout_width="36dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="12dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.romao.nhlspider.ui.widget.StyledText
+                android:id="@+id/text_goal_scorer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:font="fonts/Roboto-Bold.ttf" />
+
+            <com.romao.nhlspider.ui.widget.StyledText
+                android:id="@+id/text_assists"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <com.romao.nhlspider.ui.widget.StyledText
+                android:id="@+id/text_pp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PP"
+                app:font="fonts/Roboto-Bold.ttf"
+                android:textSize="12sp"
+                android:textColor="@color/textColorPp"
+                android:visibility="gone"
+                />
+
+            <com.romao.nhlspider.ui.widget.StyledText
+                android:id="@+id/text_sh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SH"
+                app:font="fonts/Roboto-Bold.ttf"
+                android:textSize="12sp"
+                android:textColor="@color/textColorSh"
+                android:visibility="gone"
+                />
+
+            <com.romao.nhlspider.ui.widget.StyledText
+                android:id="@+id/text_en"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EN"
+                app:font="fonts/Roboto-Bold.ttf"
+                android:textSize="12sp"
+                android:textColor="@color/textColorEn"
+                android:visibility="gone"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/customDivider"
+        />
+
+</LinearLayout>

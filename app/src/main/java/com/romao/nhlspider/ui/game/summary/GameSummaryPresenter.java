@@ -120,6 +120,12 @@ public class GameSummaryPresenter extends AbstractPresenter<GameSummaryView> {
     }
 
     public void onRefreshRequested() {
+        if (subscription != null) {
+            // game sumamry already refreshing
+            return;
+        }
+
+        view.setRefreshStarted();
         updateGameSummary();
     }
 }

@@ -1,8 +1,8 @@
 package com.romao.nhlspider.ui.game.summary;
 
 import android.content.Context;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.romao.nhlspider.R;
@@ -11,6 +11,8 @@ import com.romao.nhlspider.model.GameSummary;
 import com.romao.nhlspider.ui.common.AbstractPresenterView;
 import com.romao.nhlspider.ui.renderer.GameCardRenderer;
 import com.romao.nhlspider.ui.view.GameCardView;
+
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 
 /**
  * Created by rpiontkovsky on 12/27/2016.
@@ -29,7 +31,9 @@ public class GameSummaryView extends AbstractPresenterView<GameSummaryPresenter>
     private GameSummaryRowView viewSummaryPenalties;
     private GameSummaryRowView viewSummaryPims;
     private GameSummaryRowView viewSummarySvPct;
-    private SwipeRefreshLayout layoutSwipeRefresh;
+    private View viewGoalsSummary;
+    private LinearLayout viewGoalsList;
+    private SmoothProgressBar progressLoading;
 
     public GameSummaryView(Context context) {
         super(context);
@@ -49,14 +53,11 @@ public class GameSummaryView extends AbstractPresenterView<GameSummaryPresenter>
         viewSummaryPenalties = (GameSummaryRowView) viewGameSummary.findViewById(R.id.view_category_penalties);
         viewSummaryPims = (GameSummaryRowView) viewGameSummary.findViewById(R.id.view_category_pims);
         viewSummarySvPct = (GameSummaryRowView) viewGameSummary.findViewById(R.id.view_category_save_pct);
-        layoutSwipeRefresh = (SwipeRefreshLayout) findViewById(R.id.layout_swiperefresh);
-
-        layoutSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                presenter.onRefreshRequested();
-            }
-        });
+        viewGoalsSummary = viewGameSummary.findViewById(R.id.layout_goals);
+        viewGoalsList = (LinearLayout) viewGameSummary.findViewById(R.id.layout_goal_list);
+        progressLoading = (SmoothProgressBar) findViewById(R.id.progress_loading);
+        progressLoading.setActivated(true);
+        progressLoading.setVisibility(GONE);
     }
 
     public void setGame(Game game) {
@@ -87,6 +88,13 @@ public class GameSummaryView extends AbstractPresenterView<GameSummaryPresenter>
 
             viewGameSummary.setVisibility(VISIBLE);
             viewGameNotStarted.setVisibility(GONE);
+
+            if (gs.getGoals() == null || gs.getGoals().isEmpty()) {
+                viewGoalsSummary.setVisibility(GONE);
+            } else {
+                viewGoalsSummary.setVisibility(VISIBLE);
+                new GameGoalsRenderer(viewGoalsList).applyGoals(gs.getGoals());
+            }
         } else {
             textGameAttendance.setText(" - ");
             viewGameSummary.setVisibility(GONE);
@@ -103,6 +111,10 @@ public class GameSummaryView extends AbstractPresenterView<GameSummaryPresenter>
     }
 
     public void setRefreshFinished() {
-        layoutSwipeRefresh.setRefreshing(false);
+        progressLoading.setVisibility(GONE);
+    }
+
+    public void setRefreshStarted() {
+        progressLoading.setVisibility(VISIBLE);
     }
 }

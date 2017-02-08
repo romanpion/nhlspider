@@ -6,11 +6,15 @@
 
     <color name="textColorPrimary">#AE000000</color>
     <color name="customBgSolid">#80C0C0C0</color>
-    <color name="customBgPressed">#CDD8E6FF</color>
-    <color name="customDivider">#696969</color>
+    <color name="customBgPressed">#ADD8E6FF</color>
+    <color name="customDivider">#AD696969</color>
 
     <color name="customBgTransparentPressed">#20000000</color>
 
     <color name="textColorSecondary">#E0000000</color>
     <color name="textColorAlert">#E0F04520</color>
+
+    <color name="textColorPp">#CB062C</color>
+    <color name="textColorSh">#0436A3</color>
+    <color name="textColorEn">#808080</color>
 </resources>

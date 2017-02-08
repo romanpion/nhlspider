@@ -51,6 +51,7 @@ public class GoalRowParser {
         goal.setTeam(team);
 
         String scorerStr = elem.getChildren().get(5).getText();
+        scorerStr = scorerStr.substring(scorerStr.indexOf(" ") + 1);
         parts = scorerStr.split("[()]");
         goal.setScorer(parts[0]);
         if (period != Period.SHOOTOUT) {
@@ -62,7 +63,9 @@ public class GoalRowParser {
             // DO NOTHING goal is unassisted
         } else {
             parts = primaryAssistStr.split("[()]");
-            goal.setPrimaryAssist(parts[0]);
+            String pAssistStr = parts[0];
+            pAssistStr = pAssistStr.substring(pAssistStr.indexOf(" ") + 1);
+            goal.setPrimaryAssist(pAssistStr);
             goal.setPrimaryAssistNumber(Integer.parseInt(parts[1]));
         }
 
@@ -71,7 +74,9 @@ public class GoalRowParser {
             // DO NOTHING goal is unassisted
         } else {
             parts = secondaryAssistStr.split("[()]");
-            goal.setSecondaryAssist(parts[0]);
+            String sAssistStr = parts[0];
+            sAssistStr = sAssistStr.substring(sAssistStr.indexOf(" ") + 1);
+            goal.setSecondaryAssist(sAssistStr);
             goal.setSecondaryAssistNumber(Integer.parseInt(parts[1]));
         }
 

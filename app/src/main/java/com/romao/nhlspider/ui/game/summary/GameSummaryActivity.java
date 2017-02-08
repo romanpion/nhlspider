@@ -1,6 +1,10 @@
 package com.romao.nhlspider.ui.game.summary;
 
+import android.view.Menu;
+import android.view.MenuItem;
+
 import com.romao.nhlspider.PresenterActivity;
+import com.romao.nhlspider.R;
 import com.romao.nhlspider.ui.common.ChildActivityToolbarDecorator;
 import com.romao.nhlspider.ui.common.ToolbarDecorator;
 import com.romao.nhlspider.util.Route;
@@ -30,5 +34,27 @@ public class GameSummaryActivity extends PresenterActivity<GameSummaryPresenter,
                 return "Game Summary";
             }
         };
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_game_summary, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem itemRefresh = menu.findItem(R.id.item_refresh);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.item_refresh) {
+            presenter.onRefreshRequested();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
